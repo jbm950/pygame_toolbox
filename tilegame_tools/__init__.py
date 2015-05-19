@@ -19,7 +19,7 @@
 #   Tilemap
 
 from .. import graphics as ptg
-import pygame
+import pygame, sys
 
 class Tile(ptg.Button):
     def __init__(self,file,size):
