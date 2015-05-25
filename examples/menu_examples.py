@@ -13,6 +13,7 @@
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
 
+# Import the graphics tools and pygame and sys
 import pygame_toolbox.graphics as ptg
 import pygame,sys
 
@@ -23,10 +24,16 @@ def close():
 
 class Simple_menu(ptg.Menu):
     def __init__(self):
+        # Define the size of the screen (x,y) in number of pixels
+        size = (800,600)
+        # Create a header which will be the text at the top of the menu screen
         header = ["This is an example of an easy menu to put together."]
+        # Give the text and functions for the buttons that the menu class will create
         buttons = [["Detailed menu",lambda:2],["Simple text screens",lambda:3],
                    ["Detailed text screens",lambda:4],["Close",close]]
-        ptg.Menu.__init__(self,(800,600),(200,200,200),header,buttons)
+
+        # Run the menu class's init function
+        ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
 
 class Detailed_menu(ptg.Menu):
     def __init__(self):
@@ -46,18 +53,28 @@ class Detailed_menu(ptg.Menu):
 
 class Simple_text_screens(ptg.Textscreens):
     def __init__(self):
+        # Create the list of lines to display. Each embedded list will be its
+        # own page
         text = [["These screens will display","multiple lines of text until","The last list of text is reached"],
                 ["Last screen of text"]]
+        # Define the string and function to be used with the last button on the
+        # last screen
         lastbutton = ["Return",lambda:1]
         ptg.Textscreens.__init__(self,(800,600),(200,200,200),text,lastbutton)
 
 class Detailed_text_screens(ptg.Textscreens):
     def __init__(self):
+        # Create the text lists to be displayed.
         text = [["Like the menu, text screens can give more control over customization",
                  "As can be seen the back ground and the buttons can be customized if",
                  "more is wanted than the default options"],["Last page"]]
+        # Create a list for info on the last button. If manual buttons are used
+        # the textscreens class will still get the function for the last button
+        # here
         lastbutton = ['Continue',lambda:1]
+        # Give the name to a .png file for a background to the text screens
         background = 'background_03.png'
+        # Manually create the next, back and last buttons
         self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
         self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
         self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),sound = 'button_click.wav',background = 'button_box.png')
@@ -69,6 +86,8 @@ class Main(object):
         self.clock = pygame.time.Clock()
 
     def update(self,screen):
+        # Handle the events using a progress indicator and the update method of
+        # the menu and text screen classes
         while True:
             if self.progress == 1:
                 self.progress = Simple_menu().update(screen,self.clock)
