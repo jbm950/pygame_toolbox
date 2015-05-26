@@ -29,8 +29,8 @@ class Simple_menu(ptg.Menu):
         # Create a header which will be the text at the top of the menu screen
         header = ["This is an example of an easy menu to put together."]
         # Give the text and functions for the buttons that the menu class will create
-        buttons = [["Detailed menu",lambda:2],["Simple text screens",lambda:3],
-                   ["Detailed text screens",lambda:4],["Close",close]]
+        buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Simple text screens",lambda:4],
+                   ["Detailed text screens",lambda:5],["Close",close]]
 
         # Run the menu class's init function
         ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
@@ -50,6 +50,21 @@ class Detailed_menu(ptg.Menu):
         self.buttonlist += [ptg.Button(0,'Close',(500,450),True,self.image,
                        resize = (80,37),func = close,sound = 'button_click.wav',
                        background = 'button_box.png')]
+
+class Mini_menu(ptg.Menu):
+    def __init__(self):
+        # Define the size of the screen (x,y) in number of pixels
+        # (Note that this size is smaller than the full screen
+        #  size in this code)
+        size = (400,300)
+        # Create the text to be displayed at the top of the menu
+        header = ["This is a menu of reduced size"]
+        # Create the list of buttons to pass to the Menu.__init__
+        buttons = [["Back",lambda:1]]
+        # Run the initialization of the menu function
+        ptg.Menu.__init__(self,size,(100,200,100),header,buttons)
+        # Move the menu to the center of the screen
+        ptg.Menu.set_offset(self,(400,300),mid = 'c')
 
 class Simple_text_screens(ptg.Textscreens):
     def __init__(self):
@@ -94,8 +109,10 @@ class Main(object):
             elif self.progress == 2:
                 self.progress = Detailed_menu().update(screen,self.clock)
             elif self.progress == 3:
-                self.progress = Simple_text_screens().update(screen,self.clock)
+                self.progress = Mini_menu().update(screen,self.clock)
             elif self.progress == 4:
+                self.progress = Simple_text_screens().update(screen,self.clock)
+            elif self.progress == 5:
                 self.progress = Detailed_text_screens().update(screen,self.clock)
 
 if __name__ == '__main__':
