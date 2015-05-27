@@ -22,7 +22,7 @@
 import pygame, sys
 
 class Button:
-    def __init__(self, type_of_button, file_or_text, position, midpoint = False, surface = None, **kargs):
+    def __init__(self, type_of_button, file_or_text, position, midpoint = None, surface = None, **kargs):
         """This class will help make quick buttons for use with pygame.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Inputs:
@@ -91,7 +91,7 @@ class Button:
         # Unpack the **kargs dictionary into the possible inputs (resize,
         # fontsize and func). If there are still items in kargs return
         # an error.
-        resize = kargs.pop('resize',False)
+        resize = kargs.pop('resize',None)
         fontsize = kargs.pop('fontsize',36)
         func = kargs.pop('func',None)
         background = kargs.pop('background',(67,110,238))
@@ -207,7 +207,7 @@ class Button:
         return self.func()
 
 class Linesoftext:
-    def __init__(self,text,position,xmid = False,surface = None,**kargs):
+    def __init__(self,text,position,xmid = None,surface = None,**kargs):
         """This object will create an image of text with multiple lines.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Inputs:
@@ -406,7 +406,7 @@ class BaseScreen:
                 i.rect[1] += offset[1]
 
 class Menu(BaseScreen):
-    def __init__(self,size,background,header,buttons):
+    def __init__(self,size,background,header,buttons,music = None):
         """This will create a screen with header text and buttons that call the
         user specified functions when clicked.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -447,8 +447,20 @@ class Menu(BaseScreen):
         for i in buttons:
             self.buttonlist += [Button(0,i[0],(xmid,ybuth + buttons.index(i) * 50), True, surface = self.image,func = i[1])]
 
+        # If background music is passed in load the sound file
+        if music is not None:
+            pygame.mixer.music.load(music)
+            self.music = True
+        else:
+            self.music = None
+
     def update(self,screen,clock):
         """Event handling loop for the menu"""
+
+        #If a music file was passed, start playing it on repeat
+        if self.music is not None:
+            pygame.mixer.music.play(-1)
+
         while True:
             clock.tick(30)
             for event in pygame.event.get():
@@ -457,6 +469,7 @@ class Menu(BaseScreen):
                     sys.exit()
                 for i in self.buttonlist:
                     if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
+                        pygame.mixer.music.stop()
                         return i()
             screen.blit(self.image,self.pos)
             pygame.display.flip()
