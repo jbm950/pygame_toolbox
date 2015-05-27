@@ -422,6 +422,9 @@ class Menu(BaseScreen):
 
             buttons - This is a list containing text function pairs for each
                 desired button. Example [['Play',lambda:2],['quit',lambda:3]]
+
+            music - This will be a string of the music file you wish to play while
+                the menu is open
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Important Attributes:
             buttonlist - If you add button objects to this list the menu will
@@ -469,7 +472,8 @@ class Menu(BaseScreen):
                     sys.exit()
                 for i in self.buttonlist:
                     if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
-                        pygame.mixer.music.stop()
+                        if self.music is not None:
+                            pygame.mixer.music.stop()
                         return i()
             screen.blit(self.image,self.pos)
             pygame.display.flip()
