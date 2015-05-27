@@ -32,7 +32,7 @@ class Tile(ptg.Button):
 
             size - This is a tuple containing the length and height of the tile
 
-        (doc string updated ver 0.5)
+        (doc string updated ver 0.1)
         """
 
         # Initialize button class and set the picture attribute of the instance
@@ -63,7 +63,7 @@ class Tile(ptg.Button):
             Alpha - Level of transparency of the shade (0-255 with 150 being a
                 good middle value)
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         self.shades[shade_name] = [0, pygame.Surface(self.image.get_size())]
@@ -78,7 +78,7 @@ class Tile(ptg.Button):
             shade - This will designate which shade you wish to turn on or off.
                 Blue and red shades are available by default.
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         # First toggle the user specified shade
@@ -118,7 +118,7 @@ class Tilemap(ptg.BaseScreen):
                 0 is passed for buttonflag.
                 (you need to blit the added button to self.image manually)
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         # Initialize the screen class
@@ -159,7 +159,7 @@ class Tilemap(ptg.BaseScreen):
 
                 'c' (the offset will be treated as the center of the menu image)
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         BaseScreen.set_offset(self,offset,mid)
@@ -182,7 +182,7 @@ class Tilemap(ptg.BaseScreen):
                 'x' = diagonal
                 'b' = box
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         # Initialize the list of tiles to return

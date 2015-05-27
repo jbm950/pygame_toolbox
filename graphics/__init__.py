@@ -81,7 +81,7 @@ class Button:
                 of the button. This can be unpacked into the blit method for
                 convenience.
 
-        (doc string updated ver 0.5)
+        (doc string updated ver 0.1)
         """
 
         # Initialize pygame font and sprite class
@@ -173,7 +173,7 @@ class Button:
                 manually, such that the position input is the center of the
                 button rather than the top left corner.
 
-        (doc string updated ver 0.5)"""
+        (doc string updated ver 0.1)"""
 
         # Find the image size and midpoint of the image
         imagesize = self.image.get_size()
@@ -197,7 +197,7 @@ class Button:
            it was initialized. The button object returns whatever was returned
            by the function assigned to it. If a sound was given this sound will
            be played before the given function is called.
-           (doc string updated ver 0.5)
+           (doc string updated ver 0.1)
            """
 
         # If a sound is given play the sound before returning the given function
@@ -244,7 +244,7 @@ class Linesoftext:
                 of the text. This can be unpacked into the blit method for
                 convenience.
 
-        (doc string updated ver 0.4)
+        (doc string updated ver 0.1)
         """
 
         # Initialize the pygame font class.
@@ -314,7 +314,7 @@ class Linesoftext:
                 with a specific size otherwise a window will be sized to the
                 given text.
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         # set up a specific window to test the text in
@@ -348,7 +348,7 @@ class BaseScreen:
 
             background - The background can either be a rgb tuple or a sting for
                  a file name.
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         # Create the image that the screen will be drawn on
@@ -386,7 +386,7 @@ class BaseScreen:
 
                 'c' (the offset will be treated as the center of the menu image)
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
         if mid:
@@ -431,7 +431,7 @@ class Menu(BaseScreen):
                 automatically check if they're clicked in its update function
                 (you need to blit the added button to self.image manually)
 
-        (doc string updated ver 0.5)
+        (doc string updated ver 0.1)
         """
 
         # Initialize the screen class
@@ -510,7 +510,7 @@ class Textscreens(BaseScreen):
             lastbutton - This is the button that replaces the nextbutton on the
                 last page of the text to allow the program to move on.
 
-        (doc string updated ver 0.6)
+        (doc string updated ver 0.1)
         """
 
 
