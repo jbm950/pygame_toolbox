@@ -184,7 +184,7 @@ We're now done creating the Detailed menu class and it's code viewed in full is
 
 If we run the script, however we still won't see this menu. First lets change the name of the button in the simple menu that returns 2 so that it is more apparent that it will lead to the detailed menu.
 
-        ["Simple Button",lambda:2] > ["Detailed menu",lambda:2]
+        ["Simple Button",lambda:2] >>>> ["Detailed menu",lambda:2]
 
 Now lets add the detailed menu to the event handler when its progress attribute equals 2.
 
