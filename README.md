@@ -1,5 +1,5 @@
 # Pygame Toolbox
 This is a collection of useful code for anyone wanting to work with game making in python
 
-There is an example on menu creation in the examples folder, however, the most detailed 
-documentation is in the doc strings in the code itself.
+Information regarding the use of this library can be found in the [examples](/examples)
+Also the code itself it thoroughly documented in its doc strings.
