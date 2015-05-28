@@ -24,7 +24,9 @@ Next I'm going to define a function to properly close out of the program when ne
 
 Now we're ready to begin coding the simple menu. To start create a simple menu class that inherits from Pygame Toolbox graphic's menu class.
 
+```python
         class Simple_menu(ptg.Menu):
+```
 
 Next we define the size of the menu in number of pixels (for this tutorial the screen size is going to be 800x600 pixels) and the text displayed at the top of the menu as a header variable.
 
@@ -63,7 +65,7 @@ It should also be noted that this is only a part of the update function, not the
 
 Back to the simple menu you should now have the size of the menu, the header text and the buttons defined for the menu. All that is left is to call the inherited menu's \__init__ function and pass in our variables (the values could be passed in manually without the use of intermediate variables if desired). The tuple input is for the background variable of the menu. For this menu we're using a tuple that gives a color as a rgb value and the menu will make this color the background color.
 
-```
+```python
             # Run the menu class's init function
             ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
 ```
