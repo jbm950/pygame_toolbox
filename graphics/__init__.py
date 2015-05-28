@@ -338,7 +338,7 @@ class Linesoftext:
                     sys.exit()
 
 class BaseScreen:
-    def __init__(self,size,background = None):
+    def __init__(self,size,background = None,music = None):
         """This is a base class for the other screens offered in the pygametools
         module.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -366,6 +366,13 @@ class BaseScreen:
 
         # Set the default position of the screen to (0,0)
         self.pos = (0,0)
+
+        # If background music is passed in load the sound file
+        if music is not None:
+            pygame.mixer.music.load(music)
+            self.music = True
+        else:
+            self.music = None
 
     def set_offset(self,offset,mid = None):
         """This method will allow the menu to be placed anywhere in the open
@@ -435,7 +442,7 @@ class Menu(BaseScreen):
         """
 
         # Initialize the screen class
-        BaseScreen.__init__(self,size,background)
+        BaseScreen.__init__(self,size,background,music)
 
         # Determine the mid position of the given screen size and the
         # y button height
@@ -449,13 +456,6 @@ class Menu(BaseScreen):
         self.buttonlist = []
         for i in buttons:
             self.buttonlist += [Button(0,i[0],(xmid,ybuth + buttons.index(i) * 50), True, surface = self.image,func = i[1])]
-
-        # If background music is passed in load the sound file
-        if music is not None:
-            pygame.mixer.music.load(music)
-            self.music = True
-        else:
-            self.music = None
 
     def update(self,screen,clock):
         """Event handling loop for the menu"""
@@ -479,7 +479,7 @@ class Menu(BaseScreen):
             pygame.display.flip()
 
 class Textscreens(BaseScreen):
-    def __init__(self,size,background,text,lastbutton,manual_buttons = None):
+    def __init__(self,size,background,text,lastbutton,manual_buttons = None,music = None):
         """This is a class that will make multiple screens for displaying text,
         like a book using  pages that can be flipped back and forth between.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -519,6 +519,7 @@ class Textscreens(BaseScreen):
         self.background = background
         self.text = text
         self.lastbutton_func = lastbutton[1]
+        self.music = music
 
         # Set the progress counter for the text and page indicator for the
         # individual screens
@@ -553,7 +554,7 @@ class Textscreens(BaseScreen):
     def Screens(self,text,prog,screen,clock):
         """Prog = 0 for first page, 1 for middle pages, 2 for last page"""
         # Initialize the screen class
-        BaseScreen.__init__(self,self.size,self.background)
+        BaseScreen.__init__(self,self.size,self.background,self.music)
 
         # Determine the mid position of the given screen size and the
         # y button height
