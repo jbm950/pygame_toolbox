@@ -141,7 +141,7 @@ If you look at the update function for the graphic's menu class that was present
 
                 self.buttonlist += [ptg.Button()]
 
-###Mini Button Tutorial
+####Mini Button Tutorial
 
 Before we can go ahead and add the buttons though I need to go over the different input arguments of the button class. To do this I'm going to show the first button we'll add to the Detailed menu and go over each of the inputs one by one.
 
