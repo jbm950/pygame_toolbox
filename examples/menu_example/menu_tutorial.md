@@ -188,7 +188,7 @@ If we run the script, however we still won't see this menu. First lets change th
 
 Now lets add the detailed menu to the event handler when its progress attribute equals 2.
 
-                    elif self.progress == 2:  >>>>  elif self.progress == 2:
-                        close()               >>>>      self.progress = Detailed_menu().update(screen,self.clock)
+        elif self.progress == 2:  >>>>  elif self.progress == 2:
+            close()               >>>>      self.progress = Detailed_menu().update(screen,self.clock)
 
 The script should now be able to go back and forth between the detailed and simple screens.
