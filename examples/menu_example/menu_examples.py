@@ -33,7 +33,7 @@ class Simple_menu(ptg.Menu):
                    ["Detailed text screens",lambda:5],["Close",close]]
 
         # Run the menu class's init function
-        ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
+        ptg.Menu.__init__(self,size,(100,200,200),header,buttons)
 
 class Detailed_menu(ptg.Menu):
     def __init__(self):
@@ -76,7 +76,7 @@ class Simple_text_screens(ptg.Textscreens):
         # Define the string and function to be used with the last button on the
         # last screen
         lastbutton = ["Return",lambda:1]
-        ptg.Textscreens.__init__(self,(800,600),(200,200,200),text,lastbutton)
+        ptg.Textscreens.__init__(self,(800,600),(200,100,100),text,lastbutton)
 
 class Detailed_text_screens(ptg.Textscreens):
     def __init__(self):
@@ -96,7 +96,7 @@ class Detailed_text_screens(ptg.Textscreens):
         self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),sound = 'button_click.wav',background = 'button_box.png')
         ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1)
 
-class Main(object):
+class Main:
     def __init__(self):
         self.progress = 1
         self.clock = pygame.time.Clock()

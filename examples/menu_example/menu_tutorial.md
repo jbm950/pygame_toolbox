@@ -33,7 +33,7 @@ Next we're going to define what buttons we want to include in the menu. To do th
                 # Give the text and functions for the buttons that the menu class will create
                 buttons = [["Simple Button",lambda:2],["Close",close]]
 
-*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not actual code for the example, but rather some of the code in the graphics file.**)
+*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not actual code for the example, but rather some of the code from the graphics file.**)
         
         while True:
             clock.tick(30)
@@ -63,9 +63,53 @@ Your whole class should now look like this.
                 # Create a header which will be the text at the top of the menu screen
                 header = ["This is an example of an easy menu to put together."]
                 # Give the text and functions for the buttons that the menu class will create
-                buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Simple text screens",lambda:4],
-                           ["Detailed text screens",lambda:5],["Close",close]]
+                buttons = [["Simple Button",lambda:2],["Close",close]]
         
                 # Run the menu class's init function
                 ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
 
+We aren't ready to display anything yet unfortunately. Lets start our next step by building an event handler in a class called Main. in the initialization method we're going to set a progress attribute to 1 and this will handle switching between screens. Also we're going to create a pygame Clock object and attach it to main in a clock attribute. The code for these steps can be seen below.
+
+        class Main:
+            def __init__(self):
+                self.progress = 1
+                self.clock = pygame.time.Clock()
+
+We now need to code the event handling portion of the class and to do this we're going to use an infinite while loop in an update method. The while loop will check the progress attribute and call the corresponding screen. The return from the screen will then be the next value of the progress attribute to direct to other screens (The return of the button function will determine what the menu returns as discussed above). The update function is given below.
+
+            def update(self,screen):
+                # Handle the events using a progress indicator and the update method of
+                # the menu and text screen classes
+                while True:
+                    if self.progress == 1:
+                        self.progress = Simple_menu().update(screen,self.clock)
+                    elif self.progress == 2:
+                        close()
+                        
+For now I'm leaving progress = 2 (our simple button was pressed) as returning the close function so that we do not create an error when checking to see if the button works. The menu is then called along with its update method to let it have control of the screen. The full main class is given as
+
+        class Main:
+            def __init__(self):
+                self.progress = 1
+                self.clock = pygame.time.Clock()
+
+            def update(self,screen):
+                # Handle the events using a progress indicator and the update method of
+                # the menu and text screen classes
+                while True:
+                    if self.progress == 1:
+                        self.progress = Simple_menu().update(screen,self.clock)
+                    elif self.progress == 2:
+                        close()
+
+Last thing we need before we can run the script is something to run the necessary inits and the Main class event handler. I'm going to put this code under a script/module test so that the screen will only appear if the file is being run itself instead of being imported else where. where we are going to want to run the pre_init of pygame's mixer, run pygame's init and create a screen. Now we can create and call the Main class and its update method. This code can be seen below.
+
+        if __name__ == '__main__':
+            pygame.mixer.pre_init(44100, -16, 2, 2048)
+            pygame.init()
+            screen = pygame.display.set_mode((800,600))
+            Main().update(screen)
+
+Now we're ready to run the script. If you've done everything so far your pygame window should look like this
+
+![alt text](./simple_screen_screenshot.png)
