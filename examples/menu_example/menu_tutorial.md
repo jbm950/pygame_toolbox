@@ -126,7 +126,7 @@ This part of the tutorial is going to go over many of the options that the menu 
             def __init__(self):
                 # set the arguments for the menu class and initialize it
                 size = (800,600)
-                header = ['This is and example of a more detailed menu']
+                header = ['This is an example of a more detailed menu']
 
 This time we're going to use a picture for the background instead of an rgb value. This allows us to create screen that look much nicer for projects we share and the rgb value method gives us a way to make a rapid prototype. We're also going to pass a music variable that is the string of a sound file name. This music will be played when the detailed menu is open.
 
@@ -153,4 +153,42 @@ The Button class can be used for either picture buttons or text buttons and so t
 
 ####Continuing Detailed Menu Tutorial
 
-For this 
+For this menu we're going to have two buttons, one to return to the simple menu and one to close the window. If you remember from earlier the event handler calls the simple menu when its self.progress variable equals 1. In order to return to this menu then we'll want the "Simple menu" button to return 1 when clicked on and so you'll see this in the func argument being passed in. Both buttons for this menu are given below.
+
+                # Create the customized buttons and add them to the button list
+                self.buttonlist += [ptg.Button(0,'Simple menu',(300,450),True,self.image,
+                                               resize = (170,37),func = lambda:1,sound = 'button_click.wav',
+                                               background = 'button_box.png')]
+                self.buttonlist += [ptg.Button(0,'Close',(500,450),True,self.image,
+                                               resize = (80,37),func = close,sound = 'button_click.wav',
+                                               background = 'button_box.png')]
+
+We're now done creating the Detailed menu class and it's code viewed in full is
+
+        class Detailed_menu(ptg.Menu):
+            def __init__(self):
+                # set the arguments for the menu class and initialize it
+                size = (800,600)
+                header = ['This is an example of a more detailed menu']
+                background = 'fortress.png'
+                music = "sports_card.wav"
+                ptg.Menu.__init__(self,size,background,header,[],music)
+        
+                # Create the customized buttons and add them to the button list
+                self.buttonlist += [ptg.Button(0,'Simple menu',(300,450),True,self.image,
+                                               resize = (170,37),func = lambda:1,sound = 'button_click.wav',
+                                               background = 'button_box.png')]
+                self.buttonlist += [ptg.Button(0,'Close',(500,450),True,self.image,
+                                               resize = (80,37),func = close,sound = 'button_click.wav',
+                                               background = 'button_box.png')]
+
+If we run the script, however we still won't see this menu. First lets change the name of the button in the simple menu that returns 2 so that it is more apparent that it will lead to the detailed menu.
+
+        ["Simple Button",lambda:2] > ["Detailed menu",lambda:2]
+
+Now lets add the detailed menu to the event handler when its progress attribute equals 2.
+
+                    elif self.progress == 2:  >>>>  elif self.progress == 2:
+                        close()               >>>>      self.progress = Detailed_menu().update(screen,self.clock)
+
+The script should now be able to go back and forth between the detailed and simple screens.

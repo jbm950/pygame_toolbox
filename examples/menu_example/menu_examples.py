@@ -39,7 +39,7 @@ class Detailed_menu(ptg.Menu):
     def __init__(self):
         # set the arguments for the menu class and initialize it
         size = (800,600)
-        header = ['This is and example of a more detailed menu']
+        header = ['This is an example of a more detailed menu']
         background = 'fortress.png'
         music = "sports_card.wav"
         ptg.Menu.__init__(self,size,background,header,[],music)
