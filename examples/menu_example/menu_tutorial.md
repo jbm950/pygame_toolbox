@@ -1,4 +1,5 @@
 #Menu Tutorial
+
 In this tutorial I'm going to go over the code in the script menu_examples.py where we build 3 different menu objects (simple menu, detailed menu and mini menu) and two different text_screens objects (simple text screens and detailed text screens).
 This script can be found [here](./menu_examples.py)
 
@@ -16,6 +17,7 @@ Next I'm going to define a function to properly close out of the program when ne
             sys.exit()
 
 ##Simple menu
+
 Now we're ready to begin coding the simple menu. To start create a simple menu class that inherits from Pygame Toolbox graphic's menu class.
 
         class Simple_menu(ptg.Menu):
@@ -117,6 +119,7 @@ Now we're ready to run the script. If you've done everything so far your pygame 
 Now we're ready to start working on some of the other menus that can be built with Pygame Toolbox.
 
 ##Detailed Menu
+
 This part of the tutorial is going to go over many of the options that the menu class (and button class) have to offer. To begin we're going define the size and header inside an init of the detailed menu.
 
         class Detailed_menu(ptg.Menu):
@@ -138,10 +141,12 @@ If you look at the update function for the graphic's menu class that was present
 
                 self.buttonlist += [ptg.Button()]
 
+###Mini Button Tutorial
+
 Before we can go ahead and add the buttons though I need to go over the different input arguments of the button class. To do this I'm going to show the first button we'll add to the Detailed menu and go over each of the inputs one by one.
 
                 self.buttonlist += [ptg.Button(0,'Simple menu',(300,450),True,self.image,
                                                resize = (170,37),func = lambda:1,sound = 'button_click.wav',
                                                background = 'button_box.png')]
 
-The Button class can be used for either picture buttons or text buttons and so the first argument passed is to differentiate between these two. A zero is passed to let it know this will be a text button (1 for picture button). The next item is the text of the button itself and in this case we're going to let the user of the menu know that the button will return them to the simple menu (on a picture button this will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the buttons anywhere.
+The Button class can be used for either picture buttons or text buttons and so the first argument passed is to differentiate between these two. A zero is passed to let it know this will be a text button (1 for picture button). The next item is the text of the button itself and in this case we're going to let the user of the menu know that the button will return them to the simple menu (on a picture button this will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the buttons anywhere. The next item (True) is a flag to let the class know if we want the position we passed to be a center of button value. The default otherwise is pygame's default and the position will be taken as the top left pixel of the button. 
