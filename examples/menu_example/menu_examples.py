@@ -90,11 +90,12 @@ class Detailed_text_screens(ptg.Textscreens):
         lastbutton = ['Continue',lambda:1]
         # Give the name to a .png file for a background to the text screens
         background = 'background_03.png'
+        music = "sports_card.wav"
         # Manually create the next, back and last buttons
         self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
         self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
         self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),sound = 'button_click.wav',background = 'button_box.png')
-        ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1)
+        ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
 
 class Main:
     def __init__(self):
