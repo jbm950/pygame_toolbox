@@ -49,7 +49,7 @@ Next we're going to define what buttons we want to include in the menu. To do th
 
 It should also be noted that this is only a part of the update function, not the full function. If you'd rather something not exit the menu when its function is run look to the widgets, however, at the time of this writing widgets have not been developed yet.
 
-Back to the simple menu you should now have the size of the menu, the header text and the buttons defined for the menu. All that is left is to call the inherited menu's __init__ function and pass in our variables (the values could be passed in manually without the use of intermediate variables if desired). The tuple input is for the background variable of the menu. For this menu we're using a tuple that gives a color as a rgb value and the menu will make this color the background color.
+Back to the simple menu you should now have the size of the menu, the header text and the buttons defined for the menu. All that is left is to call the inherited menu's \__init__ function and pass in our variables (the values could be passed in manually without the use of intermediate variables if desired). The tuple input is for the background variable of the menu. For this menu we're using a tuple that gives a color as a rgb value and the menu will make this color the background color.
 
                 # Run the menu class's init function
                 ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
@@ -113,3 +113,35 @@ Last thing we need before we can run the script is something to run the necessar
 Now we're ready to run the script. If you've done everything so far your pygame window should look like this
 
 ![alt text](./simple_screen_screenshot.png)
+
+Now we're ready to start working on some of the other menus that can be built with Pygame Toolbox.
+
+##Detailed Menu
+This part of the tutorial is going to go over many of the options that the menu class (and button class) have to offer. To begin we're going define the size and header inside an init of the detailed menu.
+
+        class Detailed_menu(ptg.Menu):
+            def __init__(self):
+                # set the arguments for the menu class and initialize it
+                size = (800,600)
+                header = ['This is and example of a more detailed menu']
+
+This time we're going to use a picture for the background instead of an rgb value. This allows us to create screen that look much nicer for projects we share and the rgb value method gives us a way to make a rapid prototype. We're also going to pass a music variable that is the string of a sound file name. This music will be played when the detailed menu is open.
+
+                background = 'fortress.png'
+                music = "sports_card.wav"
+
+Now we're ready to call the ptg.Menu's init function. You'll notice that this time we are passing an empty list to the buttons argument. This is because we are going to define the buttons we want manually to take full advantage of the Button class's functionality.
+
+                ptg.Menu.__init__(self,size,background,header,[],music)
+
+If you look at the update function for the graphic's menu class that was presented earlier you'll notice that when checking for button interactions it checks the items in the attribute buttonlist. We can take advantage of this by putting buttons in this list ourselves. (**Note: Manually adding buttons to buttonlist needs to be done AFTER the ptg.Menu.\__init__() because the \__init__() will create the list thereby overwriting your manually made buttons**) To add the buttons we're going to use the following syntax.
+
+                self.buttonlist += [ptg.Button()]
+
+Before we can go ahead and add the buttons though I need to go over the different input arguments of the button class. To do this I'm going to show the first button we'll add to the Detailed menu and go over each of the inputs one by one.
+
+                self.buttonlist += [ptg.Button(0,'Simple menu',(300,450),True,self.image,
+                                               resize = (170,37),func = lambda:1,sound = 'button_click.wav',
+                                               background = 'button_box.png')]
+
+The Button class can be used for either picture buttons or text buttons and so the first argument passed is to differentiate between these two. A zero is passed to let it know this will be a text button (1 for picture button). The next item is the text of the button itself and in this case we're going to let the user of the menu know that the button will return them to the simple menu (on a picture button this will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the buttons anywhere.
