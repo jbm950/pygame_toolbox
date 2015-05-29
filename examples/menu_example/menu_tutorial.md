@@ -138,7 +138,7 @@ Last thing we need before we can run the script is something to run the necessar
 
 Now we're ready to run the script. If you've done everything so far your pygame window should look like this
 
-![alt text](./simple_screen_screenshot.png)
+![alt text](./simple_screen_screenshot.png "Simple Menu Screenshot")
 
 Now we're ready to start working on some of the other menus that can be built with Pygame Toolbox.
 
