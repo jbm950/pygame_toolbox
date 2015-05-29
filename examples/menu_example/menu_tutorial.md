@@ -544,9 +544,15 @@ The 1 after the lastbutton variable is a flag for the text screens class to let 
             background = 'background_03.png'
             music = "sports_card.wav"
             # Manually create the next, back and last buttons
-            self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
-            self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
-            self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),sound = 'button_click.wav',background = 'button_box.png')
+            self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),
+                                         sound = 'button_click.wav',
+                                         background = 'button_box.png')
+            self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),
+                                         sound = 'button_click.wav',    
+                                         background = 'button_box.png')
+            self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),
+                                         sound = 'button_click.wav',
+                                         background = 'button_box.png')
             ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
 ```
 
