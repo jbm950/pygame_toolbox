@@ -53,8 +53,10 @@ from earlier.
             buttons = [["Simple Button",lambda:2],["Close",close]]
 ```
 
-*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button 
-is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not actual code for the example, but rather some of the code from the graphics file.**)
+*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu 
+object exits out when a button is clicked. To get a better idea of what is happening, I'm going to 
+show the update function of the menu.(**NOTE: This is not actual code for the example, 
+but rather some of the code from the graphics file.**)
         
 ```python
     while True:
@@ -230,12 +232,14 @@ The Button class can be used for either picture buttons or text buttons and so t
 passed is to differentiate between these two. A zero is passed to let it know this will be a text button 
 (1 for picture button). The next item is the text of the button itself and in this case we're going to let 
 the user of the menu know that the button will return them to the simple menu (on a picture button this 
-will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the 
+will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the 
+button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the 
 buttons anywhere. The next item (True) is a flag to let the class know if we want the position we passed 
 to be a center of button value. The default otherwise is pygame's default and the position will be taken 
 as the top left pixel of the button. The self.image attribute is the pygame surface that has the complete 
 visual information of how the menu is supposed to look. By passing it to the button object the button will 
-automatically add itself (blit) to the image so you don't have to manually. The last four inputs are a bit easier to understand as their keywords are indicative of their identitys. Resize will change the size of 
+automatically add itself (blit) to the image so you don't have to manually. The last four inputs are a bit 
+easier to understand as their keywords are indicative of their identitys. Resize will change the size of 
 the box behind the button text. Func is the variable containing the function that the button will return if 
 clicked upon. The sound input is a string of a sound file to be played when the button is clicked on. Last 
 the background is a string of a picture to act as the background for the button's text. Now we're ready 
