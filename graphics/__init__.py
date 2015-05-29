@@ -554,7 +554,7 @@ class Textscreens(BaseScreen):
     def Screens(self,text,prog,screen,clock):
         """Prog = 0 for first page, 1 for middle pages, 2 for last page"""
         # Initialize the screen class
-        BaseScreen.__init__(self,self.size,self.background,self.music)
+        BaseScreen.__init__(self,self.size,self.background)
 
         # Determine the mid position of the given screen size and the
         # y button height
@@ -584,13 +584,20 @@ class Textscreens(BaseScreen):
         return Menu.update(self,screen,clock)
 
     def update(self,screen,clock):
+        #If a music file was passed, start playing it on repeat
+        if self.music is not None:
+            pygame.mixer.music.load(self.music)
+            pygame.mixer.music.play(-1)
+            self.music_textscreens = 1
+        else:
+            self.music_textscreens = 0
+
         while True:
             # Navigation through the screens
             # page = 1 - pages of text
             # page = 2 - Advance to next page of text
             # page = 3 - return a page of text
             # page = 4 - exit the set of pages
-
             if self.page == 1:
                 # check for last page then first page then make the middle pages
                 if self.progress == (len(self.text) - 1):
@@ -606,4 +613,6 @@ class Textscreens(BaseScreen):
                 self.progress -= 1
                 self.page = 1
             elif self.page == 4:
+                if self.music_textscreens:
+                    pygame.mixer.music.stop()
                 return self.lastbutton_func()
