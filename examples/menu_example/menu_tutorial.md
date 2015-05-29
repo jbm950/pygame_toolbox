@@ -388,8 +388,186 @@ Now the script should be ready to handle the new menu and when open the screen s
 ![alt text](./mini_screen_screenshot.PNG "Mini Menu Screenshot")
 
 ##Simple Text Screens
+
 The mini menu concluded our exploration of the graphics module's menu class. We're going to cover one 
 more class of the graphics module before we wrap up this tutorial, however, and that is the text screens
 class. This class is designed to make the presentation of lots of text easy. It will provide multiple screens that can be flipped back and forth through using next and back buttons. On the last page of presented 
 text a last button is provided that can be used in conjunction with an event handler like the one we've 
-got in this tutorial.
+got in this tutorial. To begin we're going to need to create our simple text screens class that inherits from
+the text screens class in the graphics module.
+
+```python
+    class Simple_text_screens(ptg.Textscreens):
+        def __init__(self):
+```
+
+Now we're going to tell it what text to display on each screen and we're going to do this by putting the
+text for each screen in a list and putting all the screen's lists in another list. Much like embedding a header
+statement for each screen. In the list of text for each individual screen, text that is to be displayed on
+different lines are separate strings in the list because there is not currently a word wrap feature. The 
+code for this is shown below.
+
+```python
+            # Create the list of lines to display. Each embedded list will be its
+            # own page
+            text = [["These screens will display","multiple lines of text until","The last list of text is reached"],
+                    ["Last screen of text"]]
+```
+
+Now we also need to define what the final button on the last page will say and do. For this we will use a 
+two item list where the first item is a string with the text of the button and the second item is the function
+to be run when the button is used. For our simple text screens we'll have the text say return and have
+the button bring us back to the simple menu when used.
+
+```python
+            # Define the string and function to be used with the last button on the
+            # last screen
+            lastbutton = ["Return",lambda:1]
+```
+
+Last thing we need to do for our simple text screens class is to run the \__init__ from the inherited 
+text screens class. You'll note two tuples that we have yet to define being passed into the \__init__.
+This is the (x,y) size of the text screens and the rgb value of the background color. This code is shown below.
+
+```python
+            ptg.Textscreens.__init__(self,(800,600),(200,100,100),text,lastbutton)
+```
+
+Now we've finished our simple text screens class and are ready to access to it in the rest of our code. A button is added to the simple menu that will change the event handler's progress attribute to 4.
+
+```python
+    buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Simple text screens",lambda:4],
+               ["Close",close]]
+```
+
+The attribute handler is then updated so that it will run the text screens code if it's progress attribute equals 4.
+
+```python
+    elif self.progress == 3:
+        self.progress = Mini_menu().update(screen,self.clock)
+    elif self.progress == 4:
+        self.progress = Simple_text_screens().update(screen,self.clock)
+```
+
+As you can see the text screens class is run exactly the same way that the menu class was run. Our new
+text screens should now be accessible from the simple menu. The full simple text screens classes code is shown below.
+
+```python
+    class Simple_text_screens(ptg.Textscreens):
+        def __init__(self):
+            # Create the list of lines to display. Each embedded list will be its
+            # own page
+            text = [["These screens will display","multiple lines of text until","The last list of text is reached"],
+                    ["Last screen of text"]]
+            # Define the string and function to be used with the last button on the
+            # last screen
+            lastbutton = ["Return",lambda:1]
+            ptg.Textscreens.__init__(self,(800,600),(200,100,100),text,lastbutton)
+```
+
+The first screen of text screens should look like this.
+
+![alt text] (./simple_textscreens_screenshot.PNG "Simple Text Screens Screenshot")
+
+##Detailed Text Screens
+
+We are now on the last topic of this tutorial. Like the menu class, the text screens class also provides 
+additional options to make the screen nicer. Let us begin by creating the detailed text screens class and
+inheriting from graphic's text screens class.
+
+```python
+    class Detailed_text_screens(ptg.Textscreens):
+        def __init__(self):
+```
+
+Now we're going to make the text variable and lastbutton variable exactly like we did in the simple text
+screens class.
+
+```python
+            # Create the text lists to be displayed.
+            text = [["Like the menu, text screens can give more control over customization",
+                     "As can be seen the back ground and the buttons can be customized if",
+                     "more is wanted than the default options"],["Last page"]]
+            # Create a list for info on the last button. If manual buttons are used
+            # the textscreens class will still get the function for the last button
+            # here
+            lastbutton = ['Continue',lambda:1]
+```
+
+This time we're going to also customize the buttons like we did in the detailed menu class. The text screens
+class does not use a button list in the same manner that the menu class does however but rather uses
+nextbutton, backbutton and lastbutton attributes. It should be noted if you're going to provide buttons 
+manually to this class you have to provide all three. Before we continue on to the buttons though let us 
+define the background image and a music file. The music file will continue to play while the screens are open and will only stop when the text screens class is exited after lastbutton has been pressed. These variables are defined as the following.
+
+```python
+            # Give the name to a .png file for a background to the text screens
+            background = 'background_03.png'
+            music = "sports_card.wav"
+```
+
+Now back to the manual creation of the buttons. Important to note is that even though we are using manual buttons, the last button variable still need to be defined. The string from the last button variable will be ignored by the class but the function will still be the function used when the textscreens class is exited after last button has been clicked. Now we're going to go ahead and define our buttons.
+
+```python
+            # Manually create the next, back and last buttons
+            self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),
+                                         sound = 'button_click.wav',
+                                         background = 'button_box.png')
+            self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),
+                                         sound = 'button_click.wav',    
+                                         background = 'button_box.png')
+            self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),
+                                         sound = 'button_click.wav',
+                                         background = 'button_box.png')
+```
+
+Notice that this time no position or functions are set for the buttons. This is because the positions will be set by the class itself along with the functions so that the buttons match its event handler. This is why the function for the lastbutton that is desired for our event handler is defined separately. Now all we need to do is call the graphic's text screens' \__init__ function.
+
+```python
+            ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
+```
+
+The 1 after the lastbutton variable is a flag for the text screens class to let it know that you want to define your buttons manually. The button definitions need to be done before the init is called which is the opposite from the menu class. The two item tuple is the (x,y) size of the screen in pixels. Now the detailed text screens class is done and is shown in full below.
+
+```python
+    class Detailed_text_screens(ptg.Textscreens):
+        def __init__(self):
+            # Create the text lists to be displayed.
+            text = [["Like the menu, text screens can give more control over customization",
+                     "As can be seen the back ground and the buttons can be customized if",
+                     "more is wanted than the default options"],["Last page"]]
+            # Create a list for info on the last button. If manual buttons are used
+            # the textscreens class will still get the function for the last button
+            # here
+            lastbutton = ['Continue',lambda:1]
+            # Give the name to a .png file for a background to the text screens
+            background = 'background_03.png'
+            music = "sports_card.wav"
+            # Manually create the next, back and last buttons
+            self.nextbutton = ptg.Button(0,'Next',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
+            self.backbutton = ptg.Button(0,'Back',(0,0),resize = (80,37),sound = 'button_click.wav',background = 'button_box.png')
+            self.lastbutton = ptg.Button(0,'Return',(0,0),resize = (150,37),sound = 'button_click.wav',background = 'button_box.png')
+            ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
+```
+
+Like the previous additions, the simple menu and the event handler need to be expanded to accommodate the new class. This time the event handler will use a progress attribute value of 5 for the detailed text screen.
+
+```python
+    elif self.progress == 4:
+        self.progress = Simple_text_screens().update(screen,self.clock)
+    elif self.progress == 5:
+        self.progress = Detailed_text_screens().update(screen,self.clock)
+```
+
+The simple class now need another button to show move the event handler to the new case.
+
+```python
+    buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Simple text screens",lambda:4],
+               ["Detailed text screens",lambda:5],["Close",close]]
+```
+
+Now the script is able to handle all of our graphics in this tutorial. The first page of the detailed text screen should look like this.
+
+![alt text] (./detailed_textscreens_screenshot.PNG "Detailed Text Screens Screenshot")
+
+This is the end of the tutorial. You should now be able to make effective use of both the menu and text screens classes for rapid prototyping and final polishing purposes.
