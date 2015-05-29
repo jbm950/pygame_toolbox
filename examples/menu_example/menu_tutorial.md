@@ -3,8 +3,7 @@
 
 In this tutorial I'm going to go over the code in the script menu_examples.py where we build 3 different menu 
 objects (simple menu, detailed menu and mini menu) and two different text_screens objects (simple text screens 
-and detailed text screens). This script can be found [here](./menu_examples.py)
-
+and detailed text screens). This script can be found [here][1].
 First let us begin by importing the modules that we will need. Since pygame_toolbox.graphics is a bit verbose I'm 
 going to import it as ptg.
     
@@ -576,4 +575,7 @@ Now the script is able to handle all of our graphics in this tutorial. The first
 
 ![alt text] (./detailed_textscreens_screenshot.PNG "Detailed Text Screens Screenshot")
 
-This is the end of the tutorial. You should now be able to make effective use of both the menu and text screens classes for rapid prototyping and final polishing purposes.
+This is the end of the tutorial. You should now be able to make effective use of both the menu and text screens classes for rapid prototyping and final polishing purposes. For comparison,the full example script can be found [here][1]
+
+[1]: ./menu_examples.py
+
