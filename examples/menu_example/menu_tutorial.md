@@ -299,9 +299,35 @@ Now lets add the detailed menu to the event handler when its progress attribute 
         close()               >>>>      self.progress = Detailed_menu().update(screen,self.clock)
 ```
 
-The script should now be able to go back and forth between the detailed and simple screens. 
+The script should now be able to go back and forth between the detailed and simple screens and the
+detailed screen should look like this
+
+![alt text](./detailed_screen_screenshot.png "Detailed Menu Screenshot")
 
 ##Mini Menu
 
 The last menu we are going to go over is a mini menu. This is a menu with a size smaller than the size 
-of the full screen. With such a menu wanting to relocate it on the screen 
+of the full screen. With such a menu the desire to place it anywhere on the screen is natural. To achieve
+this we are going to take advantage of the menu's set_offset() method. First though we need to define 
+our mini menu class. Since creation of a simple menu was already discussed I'm simply going to show the
+code
+
+```python
+    class Mini_menu(ptg.Menu):
+        def __init__(self):
+            # Define the size of the screen (x,y) in number of pixels
+            # (Note that this size is smaller than the full screen
+            #  size in this code)
+            size = (400,300)
+            # Create the text to be displayed at the top of the menu
+            header = ["This is a menu of reduced size"]
+            # Create the list of buttons to pass to the Menu.__init__
+            buttons = [["Back",lambda:1]]
+            # Run the initialization of the menu function
+            ptg.Menu.__init__(self,size,(100,200,100),header,buttons)
+```
+
+As you can see the size of the menu is half the size of the full screen. Without a set_offset() method call
+this menu would be placed in the upper left hand corner of the screen. For this tutorial we're going to 
+place the menu in the center of the screen (though can can really place it anywhere we want. Since the 
+screen dimensions are 800x600 the mid point of the screen will be located at (400,300)
