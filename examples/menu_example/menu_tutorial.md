@@ -303,7 +303,7 @@ Now lets add the detailed menu to the event handler when its progress attribute 
 The script should now be able to go back and forth between the detailed and simple screens and the
 detailed screen should look like this
 
-![alt text](./detailed_screen_screenshot.png "Detailed Menu Screenshot")
+![alt text](./detailed_screen_screenshot.PNG "Detailed Menu Screenshot")
 
 ##Mini Menu
 
@@ -385,7 +385,7 @@ menus.
 
 Now the script should be ready to handle the new menu and when open the screen should look like this.
 
-![alt text](./mini_screen_screenshot.png "Mini Menu Screenshot")
+![alt text](./mini_screen_screenshot.PNG "Mini Menu Screenshot")
 
 ##Simple Text Screens
 The mini menu concluded our exploration of the graphics module's menu class. We're going to cover one 
