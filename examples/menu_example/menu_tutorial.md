@@ -1,9 +1,11 @@
 #Menu Tutorial
 
-In this tutorial I'm going to go over the code in the script menu_examples.py where we build 3 different menu objects (simple menu, detailed menu and mini menu) and two different text_screens objects (simple text screens and detailed text screens).
-This script can be found [here](./menu_examples.py)
+In this tutorial I'm going to go over the code in the script menu_examples.py where we build 3 different menu 
+objects (simple menu, detailed menu and mini menu) and two different text_screens objects (simple text screens 
+and detailed text screens). This script can be found [here](./menu_examples.py)
 
-First let us begin by importing the modules that we will need. Since pygame_toolbox.graphics is a bit verbose I'm going to import it as ptg.
+First let us begin by importing the modules that we will need. Since pygame_toolbox.graphics is a bit verbose I'm 
+going to import it as ptg.
     
 ```python
     # Import the graphics tools and pygame and sys
@@ -11,7 +13,8 @@ First let us begin by importing the modules that we will need. Since pygame_tool
     import pygame,sys
 ```
 
-Next I'm going to define a function to properly close out of the program when needed. Without this you'll get errors when trying to close the pygame screen.
+Next I'm going to define a function to properly close out of the program when needed. Without this you'll get errors 
+when trying to close the pygame screen.
 
 ```python
     def close():
@@ -22,13 +25,15 @@ Next I'm going to define a function to properly close out of the program when ne
 
 ##Simple menu
 
-Now we're ready to begin coding the simple menu. To start create a simple menu class that inherits from Pygame Toolbox graphic's menu class.
+Now we're ready to begin coding the simple menu. To start create a simple menu class that inherits from Pygame Toolbox 
+graphic's menu class.
 
 ```python
         class Simple_menu(ptg.Menu):
 ```
 
-Next we define the size of the menu in number of pixels (for this tutorial the screen size is going to be 800x600 pixels) and the text displayed at the top of the menu as a header variable.
+Next we define the size of the menu in number of pixels (for this tutorial the screen size is going to be 800x600 pixels) and 
+the text displayed at the top of the menu as a header variable.
 
 ```python
         def __init__(self):
@@ -38,14 +43,19 @@ Next we define the size of the menu in number of pixels (for this tutorial the s
             header = ["This is an example of an easy menu to put together."]
 ```
 
-Next we're going to define what buttons we want to include in the menu. To do this we use embedded lists where the first item in the inner list is the text to be displayed on the button and the second item is the function returned when the button is clicked upon. For now we're going to just include a single button and a button that will close out of the screen using our close function from earlier.
+Next we're going to define what buttons we want to include in the menu. To do this we use embedded lists where the first item 
+in the inner list is the text to be displayed on the button and the second item is the function returned when the button is clicked 
+upon. For now we're going to just include a single button and a button that will close out of the screen using our close function 
+from earlier.
 
 ```python
             # Give the text and functions for the buttons that the menu class will create
             buttons = [["Simple Button",lambda:2],["Close",close]]
 ```
 
-*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not actual code for the example, but rather some of the code from the graphics file.**)
+*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button 
+is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not 
+actual code for the example, but rather some of the code from the graphics file.**)
         
 ```python
     while True:
