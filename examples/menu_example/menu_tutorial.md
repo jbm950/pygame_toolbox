@@ -1,4 +1,5 @@
 #Menu Tutorial
+(Note: This tutorial is written for pygame_toolbox version 0.1)
 
 In this tutorial I'm going to go over the code in the script menu_examples.py where we build 3 different menu 
 objects (simple menu, detailed menu and mini menu) and two different text_screens objects (simple text screens 
@@ -327,7 +328,68 @@ code
             ptg.Menu.__init__(self,size,(100,200,100),header,buttons)
 ```
 
-As you can see the size of the menu is half the size of the full screen. Without a set_offset() method call
-this menu would be placed in the upper left hand corner of the screen. For this tutorial we're going to 
-place the menu in the center of the screen (though can can really place it anywhere we want. Since the 
-screen dimensions are 800x600 the mid point of the screen will be located at (400,300)
+As you can see the size of the menu is half the size of the full screen. Also the only button we're adding 
+is one to return to the simple menu. Without a set_offset() method call this menu would be placed in the 
+upper left hand corner of the screen. For this tutorial we're going to place the menu in the center of the 
+screen (though can can really place it anywhere we want. Since the screen dimensions are 800x600 the 
+mid point of the screen will be located at (400,300). We'll now call the ptg.Menu's offset method in our 
+mini menu's \__init__.
+
+```python
+        # Move the menu to the center of the screen
+        ptg.Menu.set_offset(self,(400,300),mid = 'c')
+```
+
+Notice we also pass a mid argument to the method. This is because the default (like the button) is to use
+our position argument as the top left pixel of our menu. The other possible mid arguments are 'x' if you
+want to just use the x position as a mid point and the y value will still refer to the top of the menu and 'y'
+if you want only the y value to be taken as the middle of the menu and the x value will still refer to the left
+edge. The whole mini menu class should now look like
+
+```python
+    class Mini_menu(ptg.Menu):
+        def __init__(self):
+            # Define the size of the screen (x,y) in number of pixels
+            # (Note that this size is smaller than the full screen
+            #  size in this code)
+            size = (400,300)
+            # Create the text to be displayed at the top of the menu
+            header = ["This is a menu of reduced size"]
+            # Create the list of buttons to pass to the Menu.__init__
+            buttons = [["Back",lambda:1]]
+            # Run the initialization of the menu function
+            ptg.Menu.__init__(self,size,(100,200,100),header,buttons)
+            # Move the menu to the center of the screen
+            ptg.Menu.set_offset(self,(400,300),mid = 'c')
+```
+
+Now we'll need to update the simple menu class and the event handler to accommodate the new menu.
+This time we'll use the progress value of 3 to represent our mini menu and so a button will need to be
+added to the simple menu class like this.
+
+```python
+    buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Close",close]]
+```
+
+Also we need to add the extra menu in the event handler. After the check for the progress attribute
+equaling 2 we'll add another elif statement to check for the progress attribute equaling 3. When this
+case is detected we'll call the update method of the mini menu exactly the same as the previous two 
+menus.
+
+```python
+    elif self.progress == 2:
+        self.progress = Detailed_menu().update(screen,self.clock)
+    elif self.progress == 3:
+        self.progress = Mini_menu().update(screen,self.clock)
+```
+
+Now the script should be ready to handle the new menu and when open the screen should look like this.
+
+![alt text](./mini_screen_screenshot.png "Mini Menu Screenshot")
+
+##Simple Text Screens
+The mini menu concluded our exploration of the graphics module's menu class. We're going to cover one 
+more class of the graphics module before we wrap up this tutorial, however, and that is the text screens
+class. This class is designed to make the presentation of lots of text easy. It will provide multiple screens that can be flipped back and forth through using next and back buttons. On the last page of presented 
+text a last button is provided that can be used in conjunction with an event handler like the one we've 
+got in this tutorial.
