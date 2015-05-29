@@ -54,8 +54,7 @@ from earlier.
 ```
 
 *Side Note on Functionality*: The clicked on function is also returned by the menu and the menu object exits out when a button 
-is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not 
-actual code for the example, but rather some of the code from the graphics file.**)
+is clicked. To get a better idea of what is happening, I'm going to show the update function of the menu.(**NOTE: This is not actual code for the example, but rather some of the code from the graphics file.**)
         
 ```python
     while True:
@@ -71,9 +70,16 @@ actual code for the example, but rather some of the code from the graphics file.
                     return i()
 ```
 
-It should also be noted that this is only a part of the update function, not the full function. If you'd rather something not exit the menu when its function is run look to the widgets, however, at the time of this writing widgets have not been developed yet.
+It should also be noted that this is only a part of the update function, not the full function. If 
+you'd rather something not exit the menu when its function is run look to the widgets, however, 
+at the time of this writing widgets have not been developed yet.
 
-Back to the simple menu you should now have the size of the menu, the header text and the buttons defined for the menu. All that is left is to call the inherited menu's \__init__ function and pass in our variables (the values could be passed in manually without the use of intermediate variables if desired). The tuple input is for the background variable of the menu. For this menu we're using a tuple that gives a color as a rgb value and the menu will make this color the background color.
+Back to the simple menu you should now have the size of the menu, the header text and the 
+buttons defined for the menu. All that is left is to call the inherited menu's \__init__ function and 
+pass in our variables (the values could be passed in manually without the use of intermediate 
+variables if desired). The tuple input is for the background variable of the menu. For this menu 
+we're using a tuple that gives a color as a rgb value and the menu will make this color the 
+background color.
 
 ```python
             # Run the menu class's init function
@@ -96,7 +102,10 @@ Your whole class should now look like this.
             ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
 ```
 
-We aren't ready to display anything yet unfortunately. Lets start our next step by building an event handler in a class called Main. in the initialization method we're going to set a progress attribute to 1 and this will handle switching between screens. Also we're going to create a pygame Clock object and attach it to main in a clock attribute. The code for these steps can be seen below.
+We aren't ready to display anything yet unfortunately. Lets start our next step by building an 
+event handler in a class called Main. in the initialization method we're going to set a progress 
+attribute to 1 and this will handle switching between screens. Also we're going to create a pygame 
+Clock object and attach it to main in a clock attribute. The code for these steps can be seen below.
 
 ```python
     class Main:
@@ -105,7 +114,11 @@ We aren't ready to display anything yet unfortunately. Lets start our next step 
             self.clock = pygame.time.Clock()
 ```
 
-We now need to code the event handling portion of the class and to do this we're going to use an infinite while loop in an update method. The while loop will check the progress attribute and call the corresponding screen. The return from the screen will then be the next value of the progress attribute to direct to other screens (The return of the button function will determine what the menu returns as discussed above). The update function is given below.
+We now need to code the event handling portion of the class and to do this we're going to use an 
+infinite while loop in an update method. The while loop will check the progress attribute and call the 
+corresponding screen. The return from the screen will then be the next value of the progress attribute 
+to direct to other screens (The return of the button function will determine what the menu returns as 
+discussed above). The update function is given below.
 
 ```python
         def update(self,screen):
@@ -118,7 +131,9 @@ We now need to code the event handling portion of the class and to do this we're
                     close()
 ```
                         
-For now I'm leaving progress = 2 (our simple button was pressed) as returning the close function so that we do not create an error when checking to see if the button works. The menu is then called along with its update method to let it have control of the screen. The full main class is given as
+For now I'm leaving progress = 2 (our simple button was pressed) as returning the close function so 
+that we do not create an error when checking to see if the button works. The menu is then called 
+along with its update method to let it have control of the screen. The full main class is given as
 
 ```python
     class Main:
@@ -136,7 +151,11 @@ For now I'm leaving progress = 2 (our simple button was pressed) as returning th
                     close()
 ```
 
-Last thing we need before we can run the script is something to run the necessary inits and the Main class event handler. I'm going to put this code under a script/module test so that the screen will only appear if the file is being run itself instead of being imported else where. where we are going to want to run the pre_init of pygame's mixer, run pygame's init and create a screen. Now we can create and call the Main class and its update method. This code can be seen below.
+Last thing we need before we can run the script is something to run the necessary inits and the Main 
+class event handler. I'm going to put this code under a script/module test so that the screen will only 
+appear if the file is being run itself instead of being imported else where. where we are going to want 
+to run the pre_init of pygame's mixer, run pygame's init and create a screen. Now we can create and 
+call the Main class and its update method. This code can be seen below.
 
 ```python
     if __name__ == '__main__':
@@ -146,7 +165,8 @@ Last thing we need before we can run the script is something to run the necessar
         Main().update(screen)
 ```
 
-Now we're ready to run the script. If you've done everything so far your pygame window should look like this
+Now we're ready to run the script. If you've done everything so far your pygame window should look 
+like this
 
 ![alt text](./simple_screen_screenshot.png "Simple Menu Screenshot")
 
@@ -154,7 +174,8 @@ Now we're ready to start working on some of the other menus that can be built wi
 
 ##Detailed Menu
 
-This part of the tutorial is going to go over many of the options that the menu class (and button class) have to offer. To begin we're going define the size and header inside an init of the detailed menu.
+This part of the tutorial is going to go over many of the options that the menu class (and button class) 
+have to offer. To begin we're going define the size and header inside an init of the detailed menu.
 
 ```python
     class Detailed_menu(ptg.Menu):
@@ -164,20 +185,30 @@ This part of the tutorial is going to go over many of the options that the menu 
             header = ['This is an example of a more detailed menu']
 ```
 
-This time we're going to use a picture for the background instead of an rgb value. This allows us to create screen that look much nicer for projects we share and the rgb value method gives us a way to make a rapid prototype. We're also going to pass a music variable that is the string of a sound file name. This music will be played when the detailed menu is open.
+This time we're going to use a picture for the background instead of an rgb value. This allows us to 
+create screen that look much nicer for projects we share and the rgb value method gives us a way 
+to make a rapid prototype. We're also going to pass a music variable that is the string of a sound file 
+name. This music will be played when the detailed menu is open.
 
 ```python
             background = 'fortress.png'
             music = "sports_card.wav"
 ```
 
-Now we're ready to call the ptg.Menu's init function. You'll notice that this time we are passing an empty list to the buttons argument. This is because we are going to define the buttons we want manually to take full advantage of the Button class's functionality.
+Now we're ready to call the ptg.Menu's init function. You'll notice that this time we are passing an empty 
+list to the buttons argument. This is because we are going to define the buttons we want manually to 
+take full advantage of the Button class's functionality.
 
 ```python
             ptg.Menu.__init__(self,size,background,header,[],music)
 ```
 
-If you look at the update function for the graphic's menu class that was presented earlier you'll notice that when checking for button interactions it checks the items in the attribute buttonlist. We can take advantage of this by putting buttons in this list ourselves. (**Note: Manually adding buttons to buttonlist needs to be done AFTER the ptg.Menu.\__init__() because the \__init__() will create the list thereby overwriting your manually made buttons**) To add the buttons we're going to use the following syntax.
+If you look at the update function for the graphic's menu class that was presented earlier you'll notice 
+that when checking for button interactions it checks the items in the attribute buttonlist. We can take 
+advantage of this by putting buttons in this list ourselves. (**Note: Manually adding buttons to 
+buttonlist needs to be done AFTER the ptg.Menu.\__init__() because the \__init__() will create the list 
+thereby overwriting your manually made buttons**) To add the buttons we're going to use the following 
+syntax.
 
 ```python
             self.buttonlist += [ptg.Button()]
@@ -185,7 +216,9 @@ If you look at the update function for the graphic's menu class that was present
 
 ####Mini Button Tutorial
 
-Before we can go ahead and add the buttons though I need to go over the different input arguments of the button class. To do this I'm going to show the first button we'll add to the Detailed menu and go over each of the inputs one by one.
+Before we can go ahead and add the buttons though I need to go over the different input arguments 
+of the button class. To do this I'm going to show the first button we'll add to the Detailed menu and go 
+over each of the inputs one by one.
 
 ```python
             self.buttonlist += [ptg.Button(0,'Simple menu',(300,450),True,self.image,
@@ -193,11 +226,29 @@ Before we can go ahead and add the buttons though I need to go over the differen
                                            background = 'button_box.png')]
 ```
 
-The Button class can be used for either picture buttons or text buttons and so the first argument passed is to differentiate between these two. A zero is passed to let it know this will be a text button (1 for picture button). The next item is the text of the button itself and in this case we're going to let the user of the menu know that the button will return them to the simple menu (on a picture button this will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the buttons anywhere. The next item (True) is a flag to let the class know if we want the position we passed to be a center of button value. The default otherwise is pygame's default and the position will be taken as the top left pixel of the button. The self.image attribute is the pygame surface that has the complete visual information of how the menu is supposed to look. By passing it to the button object the button will automatically add itself (blit) to the image so you don't have to manually. The last four inputs are a bit easier to understand as their keywords are indicative of their identitys. Resize will change the size of the box behind the button text. Func is the variable containing the function that the button will return if clicked upon. The sound input is a string of a sound file to be played when the button is clicked on. Last the background is a string of a picture to act as the background for the button's text. Now we're ready to continue on with the menu tutorial. (The button information is reflected in depth in its docstring if additional reading is desired)
+The Button class can be used for either picture buttons or text buttons and so the first argument 
+passed is to differentiate between these two. A zero is passed to let it know this will be a text button 
+(1 for picture button). The next item is the text of the button itself and in this case we're going to let 
+the user of the menu know that the button will return them to the simple menu (on a picture button this 
+will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the 
+buttons anywhere. The next item (True) is a flag to let the class know if we want the position we passed 
+to be a center of button value. The default otherwise is pygame's default and the position will be taken 
+as the top left pixel of the button. The self.image attribute is the pygame surface that has the complete 
+visual information of how the menu is supposed to look. By passing it to the button object the button will 
+automatically add itself (blit) to the image so you don't have to manually. The last four inputs are a bit easier to understand as their keywords are indicative of their identitys. Resize will change the size of 
+the box behind the button text. Func is the variable containing the function that the button will return if 
+clicked upon. The sound input is a string of a sound file to be played when the button is clicked on. Last 
+the background is a string of a picture to act as the background for the button's text. Now we're ready 
+to continue on with the menu tutorial. (The button information is reflected in depth in its docstring if 
+additional reading is desired)
 
 ####Continuing Detailed Menu Tutorial
 
-For this menu we're going to have two buttons, one to return to the simple menu and one to close the window. If you remember from earlier the event handler calls the simple menu when its self.progress variable equals 1. In order to return to this menu then we'll want the "Simple menu" button to return 1 when clicked on and so you'll see this in the func argument being passed in. Both buttons for this menu are given below.
+For this menu we're going to have two buttons, one to return to the simple menu and one to close the 
+window. If you remember from earlier the event handler calls the simple menu when its self.progress 
+variable equals 1. In order to return to this menu then we'll want the "Simple menu" button to return 1 
+when clicked on and so you'll see this in the func argument being passed in. Both buttons for this menu 
+are given below.
 
 ```python
             # Create the customized buttons and add them to the button list
@@ -230,7 +281,8 @@ We're now done creating the Detailed menu class and it's code viewed in full is
                                            background = 'button_box.png')]
 ```
 
-If we run the script, however we still won't see this menu. First lets change the name of the button in the simple menu that returns 2 so that it is more apparent that it will lead to the detailed menu.
+If we run the script, however we still won't see this menu. First lets change the name of the button in 
+the simple menu that returns 2 so that it is more apparent that it will lead to the detailed menu.
 
 ```python
     ["Simple Button",lambda:2] >>>> ["Detailed menu",lambda:2]
@@ -247,4 +299,5 @@ The script should now be able to go back and forth between the detailed and simp
 
 ##Mini Menu
 
-The last menu we are going to go over is a mini menu. This is a menu with a size smaller than the size of the full screen. With such a menu wanting to relocate it on the screen 
+The last menu we are going to go over is a mini menu. This is a menu with a size smaller than the size 
+of the full screen. With such a menu wanting to relocate it on the screen 
