@@ -1,4 +1,6 @@
 #Welcome to the examples for Pygame Toolbox
-Currently Pygame Toolbox is a collection of tools for menu making. The following is a tutorial going over the menu creation tools of Pygame Toolbox.
+Pygame Toolbox is a collection of tools to aid game making in Python. To better understand how to use the library please reference the tutorials below.
 
-* [Basic Menus Tutorial](./menu_example/menu_tutorial.md)
+##Tutorials
+
+* [Basic Menus Tutorial](./menu_example/menu_tutorial.md) - This tutorial goes over the main classes in the graphics module.
