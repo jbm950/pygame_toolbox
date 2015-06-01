@@ -460,6 +460,15 @@ class Menu(BaseScreen):
         # Create an empty list of widgets
         self.widgetlist = []
 
+    def widget_status(self):
+        """This method will return the status of all of the widgets in the
+        widget list"""
+        widget_status_list = []
+        for i in self.widgetlist:
+            widget_status_list += [[i.name,i.status]]
+        return widget_status_list
+
+
     def update(self,screen,clock):
         """Event handling loop for the menu"""
 
@@ -473,11 +482,15 @@ class Menu(BaseScreen):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # Check if any of the buttons were clicked
                 for i in self.buttonlist:
                     if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
                         if self.music is not None:
                             pygame.mixer.music.stop()
-                        return i()
+                        if self.widgetlist:
+                            return [i(),self.widget_status()]
+                        else:
+                            return i()
                 # If there is a widget list, check to see if any were clicked
                 if self.widgetlist:
                     for i in self.widgetlist:
