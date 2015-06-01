@@ -457,6 +457,9 @@ class Menu(BaseScreen):
         for i in buttons:
             self.buttonlist += [Button(0,i[0],(xmid,ybuth + buttons.index(i) * 50), True, surface = self.image,func = i[1])]
 
+        # Create an empty list of widgets
+        self.widgetlist = []
+
     def update(self,screen,clock):
         """Event handling loop for the menu"""
 
@@ -475,6 +478,12 @@ class Menu(BaseScreen):
                         if self.music is not None:
                             pygame.mixer.music.stop()
                         return i()
+                # If there is a widget list, check to see if any were clicked
+                if self.widgetlist:
+                    for i in self.widgetlist:
+                        if event.type == pygame.MOUSEBUTTONDOWN and i.rect.collidepoint(pygame.mouse.get_pos()):
+                            # Call the widget and give it the menu information
+                            i(self)
             screen.blit(self.image,self.pos)
             pygame.display.flip()
 
