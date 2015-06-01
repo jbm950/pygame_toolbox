@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Name:        pygame_toolbox.graphics.py
+# Name:        pygame_toolbox.graphics.__init__.py
 # Purpose:     This module holds basic graphics classes
 #
 # Contributors: James Milam
