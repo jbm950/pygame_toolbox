@@ -144,11 +144,7 @@ class Button:
             imagemidp = (int(self.image.get_width() * 0.5), int(self.image.get_height() * 0.5))
 
         # Set the position of the button
-        self.set_position(position,midpoint)
-
-        # automatically blit the button onto an input surface
-        if surface:
-            surface.blit(*self.blitinfo)
+        self.set_position(position,midpoint,surface)
 
         # Set the function for the button to pass into the call for the class
         if func is not None:
@@ -160,7 +156,7 @@ class Button:
         else:
             self.sound = None
 
-    def set_position(self,position,midpoint = False):
+    def set_position(self,position,midpoint = False,surface = None):
         """This method allows the button to be moved manually and keep the click
         on functionality.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,6 +187,10 @@ class Button:
 
         # Set up the information that is needed to blit the image to the surface
         self.blitinfo = (self.image, self.pos)
+
+        # automatically blit the button onto an input surface
+        if surface:
+            surface.blit(*self.blitinfo)
 
     def __call__(self):
         """Calling the button will call what ever function was passed to it when
@@ -542,6 +542,7 @@ class Textscreens(BaseScreen):
         self.text = text
         self.lastbutton_func = lastbutton[1]
         self.music = music
+        self.widgetlist = []
 
         # Set the progress counter for the text and page indicator for the
         # individual screens

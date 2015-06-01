@@ -17,6 +17,7 @@
 #   Checkbox
 
 from .. import graphics as ptg
+import pygame
 
 # Variant on the button class that allows inputs to its call
 class wButton(ptg.Button):
@@ -42,4 +43,36 @@ class wButton(ptg.Button):
         return self.func(*args,**kargs)
 
 class Checkbox:
-    def __init__(self):
+    def __init__(self,name,position,size,midpoint = False,surface = None):
+        self.image = pygame.Surface((size))
+        self.image.fill((255,255,255))
+        self.name = name
+        self.status = 0
+
+        # Keep location information
+        self.position = position
+        self.midpoint = midpoint
+        self.surface = surface
+        ptg.Button.set_position(self,position,midpoint,surface)
+
+    def __call__(self,*arg):
+        if self.status:
+            self.status = 0
+            self.image.fill((255,255,255))
+            ptg.Button.set_position(self,self.position,self.midpoint,self.surface)
+        else:
+            self.status = 1
+            imagesize = self.image.get_size()
+            imagemidp = (int(imagesize[0] * 0.5),int(imagesize[1] * 0.5))
+            check = pygame.Surface((round(0.75*imagesize[0]),round(0.75*imagesize[1])))
+            check.fill((0,0,0))
+            checksize = check.get_size()
+            checkmidp = (int(checksize[0] * 0.5),int(checksize[1] * 0.5))
+            self.image.blit(check,(imagemidp[0]-checkmidp[0],imagemidp[1]-checkmidp[1]))
+            ptg.Button.set_position(self,self.position,self.midpoint,self.surface)
+
+
+
+
+
+
