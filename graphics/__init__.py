@@ -1,5 +1,5 @@
 #-------------------------------------------------------------------------------
-# Name:        pygame_toolbox.graphics.py
+# Name:        pygame_toolbox.graphics.__init__.py
 # Purpose:     This module holds basic graphics classes
 #
 # Contributors: James Milam
@@ -144,11 +144,7 @@ class Button:
             imagemidp = (int(self.image.get_width() * 0.5), int(self.image.get_height() * 0.5))
 
         # Set the position of the button
-        self.set_position(position,midpoint)
-
-        # automatically blit the button onto an input surface
-        if surface:
-            surface.blit(*self.blitinfo)
+        self.set_position(position,midpoint,surface)
 
         # Set the function for the button to pass into the call for the class
         if func is not None:
@@ -160,7 +156,7 @@ class Button:
         else:
             self.sound = None
 
-    def set_position(self,position,midpoint = False):
+    def set_position(self,position,midpoint = False,surface = None):
         """This method allows the button to be moved manually and keep the click
         on functionality.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -191,6 +187,10 @@ class Button:
 
         # Set up the information that is needed to blit the image to the surface
         self.blitinfo = (self.image, self.pos)
+
+        # automatically blit the button onto an input surface
+        if surface:
+            surface.blit(*self.blitinfo)
 
     def __call__(self):
         """Calling the button will call what ever function was passed to it when
@@ -457,6 +457,18 @@ class Menu(BaseScreen):
         for i in buttons:
             self.buttonlist += [Button(0,i[0],(xmid,ybuth + buttons.index(i) * 50), True, surface = self.image,func = i[1])]
 
+        # Create an empty list of widgets
+        self.widgetlist = []
+
+    def widget_status(self):
+        """This method will return the status of all of the widgets in the
+        widget list"""
+        widget_status_list = []
+        for i in self.widgetlist:
+            widget_status_list += [[i.name,i.status]]
+        return widget_status_list
+
+
     def update(self,screen,clock):
         """Event handling loop for the menu"""
 
@@ -470,11 +482,21 @@ class Menu(BaseScreen):
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # Check if any of the buttons were clicked
                 for i in self.buttonlist:
                     if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
                         if self.music is not None:
                             pygame.mixer.music.stop()
-                        return i()
+                        if self.widgetlist:
+                            return [i(),self.widget_status()]
+                        else:
+                            return i()
+                # If there is a widget list, check to see if any were clicked
+                if self.widgetlist:
+                    for i in self.widgetlist:
+                        if event.type == pygame.MOUSEBUTTONDOWN and i.rect.collidepoint(pygame.mouse.get_pos()):
+                            # Call the widget and give it the menu information
+                            i(self)
             screen.blit(self.image,self.pos)
             pygame.display.flip()
 
@@ -520,6 +542,7 @@ class Textscreens(BaseScreen):
         self.text = text
         self.lastbutton_func = lastbutton[1]
         self.music = music
+        self.widgetlist = []
 
         # Set the progress counter for the text and page indicator for the
         # individual screens
