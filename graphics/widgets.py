@@ -44,6 +44,8 @@ class wButton(ptg.Button):
 
 class Checkbox:
     def __init__(self,name,position,size,midpoint = False,surface = None):
+        """This class will give the user an easy way to make decisions
+        and pass the information on to the program"""
         self.image = pygame.Surface((size))
         self.image.fill((255,255,255))
         self.name = name
