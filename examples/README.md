@@ -4,3 +4,4 @@ Pygame Toolbox is a collection of tools to aid game making in Python. To better 
 ##Tutorials
 
 * [Basic Menus Tutorial](./menu_example/menu_tutorial.md) - This tutorial goes over the main classes in the graphics module.
+* [Tilegame Tools Tutorial](./tiletools_example/tilegame_tools_tutorial.md) - This tutorial goes over the main tools provided in the tilegame module.
