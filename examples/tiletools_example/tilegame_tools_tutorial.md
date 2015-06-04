@@ -38,3 +38,36 @@ The "orange red" argument in the method is what we want our shade to be called. 
 A side effect of the shades feature is that the tile class is now useful in places other than boardgame like games. It can be taken advantage of any place there is an image that needs to have a toggleable shade. We're now done with the tile class and are ready to discuss the tilelist class.
 
 ##The Tilelist Class
+
+The tilelist class directly inherits from the builtin list class. This means that it will have all of the features, methods and functionality of a regular list. We are going to use the tile list to hold an array of tiles. To achieve this we are going to use embedded lists where each embedded list is a new row of tiles. In the tutorial we are going to attach the list to our event handler class, Main. This code will be shown below but for more information on making event handlers using pygame_toolbox refer to the [menu tutorial](../menu_example/menu_tutorial.md).
+
+```python
+    class Main:
+        def __init__(self):
+            # Create a 4x4 matrix of tiles and use the tilelist class to
+            # obtain additional functionality for the matrix.
+            self.tilelist = pttt.Tilelist([[Tile('forrest.png',(200,150)) for i in range(0,4)],
+                                           [Tile('forrest.png',(200,150)) for i in range(0,4)],
+                                           [Tile('forrest.png',(200,150)) for i in range(0,4)],
+                                           [Tile('forrest.png',(200,150)) for i in range(0,4)]])
+            self.clock = pygame.time.Clock()
+            self.progress = 1
+```
+
+The tilelist attribute will be a 4 by 4 matrix of tile objects using our subclassed tile class from the previous section. The reason to use a tilelist instead of a regular list is that it has an extra method called adjacent_tiles. This method when called with a specific tile will return a list of the tiles around the input tile using a specific pattern. This method will be discussed in greater detail when the rest of the script is assembled. We are now ready to move on to our discussion on tilemaps.
+
+##The Tilemap Class
+
+This class is very similar to the menu class from the graphics module in that it draws all of the tiles on the screen and handles the events for the tile list. We are going to begin by subclassing the tilemap from the tilegame_tools module and reduce the amount of inputs it will require for this script.
+
+```python
+    # Create the tilemap object that will handle displaying all of the
+    # tiles
+    class Tilemap(pttt.Tilemap):
+        def __init__(self,tilelist):
+            pttt.Tilemap.__init__(self,(800,600),tilelist,1)
+```
+
+The init for the parent tilemap class is run and pased a tuple of the x,y size of the screen in pixels, the tilelist and a 1 for the buttonflag input. The buttonflag input lets the tilemap know if you want it to return a tile that was clicked on, 1, or to check for items in a buttonlist like the menu class, 0. **Note that the tiles created for the tilelist will need to be presized to match the tilemap as the class does not currenly resize them to make them fit the tilemap size**. This concludes the discussion on the tilemap class and so we will now move on to the example to wrap everything together and provide greater discussion on topics that were mentioned briefly earlier in the tutorial.
+
+##Tilegame Example Script
