@@ -71,3 +71,42 @@ This class is very similar to the menu class from the graphics module in that it
 The init for the parent tilemap class is run and pased a tuple of the x,y size of the screen in pixels, the tilelist and a 1 for the buttonflag input. The buttonflag input lets the tilemap know if you want it to return a tile that was clicked on, 1, or to check for items in a buttonlist like the menu class, 0. **Note that the tiles created for the tilelist will need to be presized to match the tilemap as the class does not currenly resize them to make them fit the tilemap size**. This concludes the discussion on the tilemap class and so we will now move on to the example to wrap everything together and provide greater discussion on topics that were mentioned briefly earlier in the tutorial.
 
 ##Tilegame Example Script
+
+So far in the tutorial we have subclassed the tile and tilemap classes and created an event handler's init method. We still need to define the event handler's update method and call the event handler itself. 
+
+Lets start with the event handler's update method. What we're going to do is code it such that the user can click on a tile on the tilemap and we'll find the adjacent tiles and toggle the orange red shade we initialized in our tile class. First we're going to need to add the update method and assign the value returned from the tilemap to a tileclicked variable.
+
+```python
+    def update(self,screen):
+        while True:
+            if self.progress == 1:
+                # When a tile is clicked shade the 4 tiles around it
+                # using the orange red shade we created
+                tileclicked = Tilemap(self.tilelist).update(screen,self.clock)
+```
+
+This will work because we passed a 1 to the buttonflag when we initialized the tilemap earlier. Now that we have access to the tile that the user clicked, we're going to pass that tile to the tilelist's adjacent tiles method to get a list of the tiles surrounding the tile that was clicked.
+
+```python
+                adjtiles = self.tilelist.adjacent_tiles(tileclicked,'p')
+```
+
+Note that in addition to the tileclicked, 'p' was also passed in. This input lets the tilelist class know what sort of pattern you are looking for adjacent to the tile clicked. The 'p' stands for plus sign with the other options being 'x' for a diagonal pattern and 'b' for all of the tiles in a box around the tile that was clicked. We now have the tiles adjacent to the tile that was clicked and so the last thing to do is to toggle the shade for these tiles. To do this we are going to use a for loop and run the toggle_shade method for each tile.
+
+```python
+                for i in adjtiles:
+                    i.toggle_shade("orange red")
+```
+
+The only input for this method is the name of the shade you want to toggle which is the same name that the shade was assigned upon initialization. Note that the tile class automatically initializes blue and red shades for use. Now our event handler is complete and the only thing remaining is to call the event handler.
+
+This next bit of code will initialize pygame, set up a display screen and call the event handler.
+
+```python
+    if __name__ == '__main__':
+        pygame.init()
+        screen = pygame.display.set_mode((800,600))
+        Main().update(screen)
+```
+
+Now the script is ready to run and the main features of the tilegame toolbox have been introduced. The whole script can be accessed at the top of this page.
