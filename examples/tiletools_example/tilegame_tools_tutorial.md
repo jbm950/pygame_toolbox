@@ -1,0 +1,3 @@
+#Tilegame Tutorial
+
+This tutorial will go over the tile and tilelist classes in the tilegame_tools module and wrap up by using the tilemap class to put the previous sections together. The [tiletools example](./tiletools_example.py) script is what this tutorial will be following. (Note these tiles are similar to board game tiles. If you were looking for code to interact with the tiled editor I would suggest checking out [PyTMX](https://github.com/bitcraft/PyTMX).
