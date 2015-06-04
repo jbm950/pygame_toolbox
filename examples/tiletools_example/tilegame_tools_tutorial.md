@@ -109,4 +109,6 @@ This next bit of code will initialize pygame, set up a display screen and call t
         Main().update(screen)
 ```
 
-Now the script is ready to run and the main features of the tilegame toolbox have been introduced. The whole script can be accessed at the top of this page.
+Now the script is ready to run and the main features of the tilegame toolbox have been introduced. The whole script can be accessed at the top of this page. When a tile is clicked the screen should look like the following screenshot.
+
+![alt text](./tilemap_screenshot.PNG "Tilemap Screenshot")
