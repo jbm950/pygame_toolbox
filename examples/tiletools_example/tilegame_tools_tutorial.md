@@ -1,4 +1,5 @@
 #Tilegame Tutorial
+(Note: This tutorial is written for pygame_toolbox version 0.1)
 
 This tutorial will go over the tile and tilelist classes in the tilegame_tools module and wrap up by using the tilemap class to put the previous sections together. The [tiletools example](./tiletools_example.py) script is what this tutorial will be following. (Note these tiles are similar to board game tiles. If you were looking for code to interact with the tiled editor I would suggest checking out [PyTMX](https://github.com/bitcraft/PyTMX).)
 
@@ -32,4 +33,8 @@ The file input is the string of the picture file that we want to be the image fo
             pttt.Tile.initialize_shade(self,"orange red",(255,69,0),150)
 ```
 
-The "orange red" argument in the method is what we want our shade to be called. The three item tuple is the rgb value of the shade (a planned addition is to allow strings with a picture file's name to be used instead of rgb values). The last item in the method call is the alpha value of the shade. This number ranges from 0 to 255 and determines the transparency of the shade where 0 is completely transparent and 255 is completely solid. The initialize shade method will take these arguments and will add them to the instances shade dictionary where the key is the name we gave the shade and the value is a pygame surface with the color and transparency we passed.
+The "orange red" argument in the method is what we want our shade to be called. The three item tuple is the rgb value of the shade (a planned addition is to allow strings with a picture file's name to be used instead of rgb values). The last item in the method call is the alpha value of the shade. This number ranges from 0 to 255 and determines the transparency of the shade where 0 is completely transparent and 255 is completely solid. The initialize shade method will take these arguments and will add them to the instances shade dictionary where the key is the name we gave the shade and the value is a pygame surface with the color and transparency we passed. This shade will be placed over the image using the toggle_shade method discussed later in this tutorial.
+
+A side effect of the shades feature is that the tile class is now useful in places other than boardgame like games. It can be taken advantage of any place there is an image that needs to have a toggleable shade. We're now done with the tile class and are ready to discuss the tilelist class.
+
+##The Tilelist Class
