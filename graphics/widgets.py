@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        pygame_toolbox.graphics.widgets.py
-# Purpose:     This module holds basic graphics classes
+# Purpose:     This module holds the widgets useable by the menu class
 #
 # Contributors: James Milam
 #
