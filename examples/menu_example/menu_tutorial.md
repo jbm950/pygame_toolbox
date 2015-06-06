@@ -43,20 +43,23 @@ the text displayed at the top of the menu as a header variable.
             header = ["This is an example of an easy menu to put together."]
 ```
 
-Next we're going to define what buttons we want to include in the menu. To do this we use embedded lists where the first item 
-in the inner list is the text to be displayed on the button and the second item is the function returned when the button is clicked 
-upon. For now we're going to just include a single button and a button that will close out of the screen using our close function 
-from earlier.
+Next we're going to define what buttons we want to include in the menu. To do
+this we use embedded lists where the first item in the inner list is the text
+to be displayed on the button and the second item is the function returned when
+the button is clicked upon. For now we're going to just include a single button
+and a button that will close out of the screen using our close function from
+earlier.
 
 ```python
             # Give the text and functions for the buttons that the menu class will create
             buttons = [["Simple Button",lambda:2],["Close",close]]
 ```
 
-*Side Note on Functionality*: The clicked on function is also returned by the menu and the menu 
-object exits out when a button is clicked. To get a better idea of what is happening, I'm going to 
-show the update function of the menu.(**NOTE: This is not actual code for the example, 
-but rather some of the code from the graphics file.**)
+*Side Note on Functionality*: The clicked on function is also returned by the
+menu and the menu object exits out when a button is clicked. To get a better
+idea of what is happening, I'm going to show the update function of the
+menu.(**NOTE: This is not actual code for the example, but rather some of the
+code from the graphics file.**)
         
 ```python
     while True:
@@ -72,16 +75,16 @@ but rather some of the code from the graphics file.**)
                     return i()
 ```
 
-It should also be noted that this is only a part of the update function, not the full function. If 
-you'd rather something not exit the menu when its function is run look to the widgets, however, 
-at the time of this writing widgets have not been developed yet.
-
-Back to the simple menu you should now have the size of the menu, the header text and the 
-buttons defined for the menu. All that is left is to call the inherited menu's \__init__ function and 
-pass in our variables (the values could be passed in manually without the use of intermediate 
-variables if desired). The tuple input is for the background variable of the menu. For this menu 
-we're using a tuple that gives a color as a rgb value and the menu will make this color the 
-background color.
+It should also be noted that this is only a part of the update function, not
+the full function. If you'd rather something not exit the menu when its
+function is run look to the widgets, however, at the time of this writing
+widgets have not been developed yet.  Back to the simple menu you should now
+have the size of the menu, the header text and the buttons defined for the
+menu. All that is left is to call the inherited menu's \__init__ function and
+pass in our variables (the values could be passed in manually without the use
+of intermediate variables if desired). The tuple input is for the background
+variable of the menu. For this menu we're using a tuple that gives a color as a
+rgb value and the menu will make this color the background color.
 
 ```python
             # Run the menu class's init function
@@ -104,10 +107,12 @@ Your whole class should now look like this.
             ptg.Menu.__init__(self,size,(200,200,200),header,buttons)
 ```
 
-We aren't ready to display anything yet unfortunately. Lets start our next step by building an 
-event handler in a class called Main. in the initialization method we're going to set a progress 
-attribute to 1 and this will handle switching between screens. Also we're going to create a pygame 
-Clock object and attach it to main in a clock attribute. The code for these steps can be seen below.
+We aren't ready to display anything yet unfortunately. Lets start our next step
+by building an event handler in a class called Main. in the initialization
+method we're going to set a progress attribute to 1 and this will handle
+switching between screens. Also we're going to create a pygame Clock object and
+attach it to main in a clock attribute. The code for these steps can be seen
+below.
 
 ```python
     class Main:
@@ -116,11 +121,12 @@ Clock object and attach it to main in a clock attribute. The code for these step
             self.clock = pygame.time.Clock()
 ```
 
-We now need to code the event handling portion of the class and to do this we're going to use an 
-infinite while loop in an update method. The while loop will check the progress attribute and call the 
-corresponding screen. The return from the screen will then be the next value of the progress attribute 
-to direct to other screens (The return of the button function will determine what the menu returns as 
-discussed above). The update function is given below.
+We now need to code the event handling portion of the class and to do this
+we're going to use an infinite while loop in an update method. The while loop
+will check the progress attribute and call the corresponding screen. The return
+from the screen will then be the next value of the progress attribute to direct
+to other screens (The return of the button function will determine what the
+menu returns as discussed above). The update function is given below.
 
 ```python
         def update(self,screen):
@@ -228,22 +234,28 @@ over each of the inputs one by one.
                                            background = 'button_box.png')]
 ```
 
-The Button class can be used for either picture buttons or text buttons and so the first argument 
-passed is to differentiate between these two. A zero is passed to let it know this will be a text button 
-(1 for picture button). The next item is the text of the button itself and in this case we're going to let 
-the user of the menu know that the button will return them to the simple menu (on a picture button this 
-will be a string of a file name to the picture to be used). The next item is a tuple of the x,y position of the 
-button in pixels. Using this method of adding buttons to the screen will therefore allow us to place the 
-buttons anywhere. The next item (True) is a flag to let the class know if we want the position we passed 
-to be a center of button value. The default otherwise is pygame's default and the position will be taken 
-as the top left pixel of the button. The self.image attribute is the pygame surface that has the complete 
-visual information of how the menu is supposed to look. By passing it to the button object the button will 
-automatically add itself (blit) to the image so you don't have to manually. The last four inputs are a bit 
-easier to understand as their keywords are indicative of their identitys. Resize will change the size of 
-the box behind the button text. Func is the variable containing the function that the button will return if 
-clicked upon. The sound input is a string of a sound file to be played when the button is clicked on. Last 
-the background is a string of a picture to act as the background for the button's text. Now we're ready 
-to continue on with the menu tutorial. (The button information is reflected in depth in its docstring if 
+The Button class can be used for either picture buttons or text buttons and so
+the first argument passed is to differentiate between these two. A zero is
+passed to let it know this will be a text button (1 for picture button). The
+next item is the text of the button itself and in this case we're going to let
+the user of the menu know that the button will return them to the simple menu
+(on a picture button this will be a string of a file name to the picture to be
+used). The next item is a tuple of the x,y position of the button in pixels.
+Using this method of adding buttons to the screen will therefore allow us to
+place the buttons anywhere. The next item (True) is a flag to let the class
+know if we want the position we passed to be a center of button value. The
+default otherwise is pygame's default and the position will be taken as the top
+left pixel of the button. The self.image attribute is the pygame surface that
+has the complete visual information of how the menu is supposed to look. By
+passing it to the button object the button will automatically add itself (blit)
+to the image so you don't have to manually. The last four inputs are a bit
+easier to understand as their keywords are indicative of their identitys.
+Resize will change the size of the box behind the button text. Func is the
+variable containing the function that the button will return if clicked upon.
+The sound input is a string of a sound file to be played when the button is
+clicked on. Last the background is a string of a picture to act as the
+background for the button's text. Now we're ready to continue on with the menu
+tutorial. (The button information is reflected in depth in its docstring if
 additional reading is desired)
 
 ####Continuing Detailed Menu Tutorial
@@ -505,7 +517,12 @@ define the background image and a music file. The music file will continue to pl
             music = "sports_card.wav"
 ```
 
-Now back to the manual creation of the buttons. Important to note is that even though we are using manual buttons, the last button variable still need to be defined. The string from the last button variable will be ignored by the class but the function will still be the function used when the textscreens class is exited after last button has been clicked. Now we're going to go ahead and define our buttons.
+Now back to the manual creation of the buttons. Important to note is that even
+though we are using manual buttons, the last button variable still need to be
+defined. The string from the last button variable will be ignored by the class
+but the function will still be the function used when the textscreens class is
+exited after last button has been clicked. Now we're going to go ahead and
+define our buttons.
 
 ```python
             # Manually create the next, back and last buttons
@@ -520,13 +537,21 @@ Now back to the manual creation of the buttons. Important to note is that even t
                                          background = 'button_box.png')
 ```
 
-Notice that this time no position or functions are set for the buttons. This is because the positions will be set by the class itself along with the functions so that the buttons match its event handler. This is why the function for the lastbutton that is desired for our event handler is defined separately. Now all we need to do is call the graphic's text screens' \__init__ function.
+Notice that this time no position or functions are set for the buttons. This is
+because the positions will be set by the class itself along with the functions
+so that the buttons match its event handler. This is why the function for the
+lastbutton that is desired for our event handler is defined separately. Now all
+we need to do is call the graphic's text screens' \__init__ function.
 
 ```python
             ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
 ```
 
-The 1 after the lastbutton variable is a flag for the text screens class to let it know that you want to define your buttons manually. The button definitions need to be done before the init is called which is the opposite from the menu class. The two item tuple is the (x,y) size of the screen in pixels. Now the detailed text screens class is done and is shown in full below.
+The 1 after the lastbutton variable is a flag for the text screens class to let
+it know that you want to define your buttons manually. The button definitions
+need to be done before the init is called which is the opposite from the menu
+class. The two item tuple is the (x,y) size of the screen in pixels. Now the
+detailed text screens class is done and is shown in full below.
 
 ```python
     class Detailed_text_screens(ptg.Textscreens):
@@ -555,7 +580,9 @@ The 1 after the lastbutton variable is a flag for the text screens class to let 
             ptg.Textscreens.__init__(self,(800,600),background,text,lastbutton,1,music)
 ```
 
-Like the previous additions, the simple menu and the event handler need to be expanded to accommodate the new class. This time the event handler will use a progress attribute value of 5 for the detailed text screen.
+Like the previous additions, the simple menu and the event handler need to be
+expanded to accommodate the new class. This time the event handler will use a
+progress attribute value of 5 for the detailed text screen.
 
 ```python
     elif self.progress == 4:
@@ -564,18 +591,23 @@ Like the previous additions, the simple menu and the event handler need to be ex
         self.progress = Detailed_text_screens().update(screen,self.clock)
 ```
 
-The simple class now need another button to show move the event handler to the new case.
+The simple class now need another button to show move the event handler to the
+new case.
 
 ```python
     buttons = [["Detailed menu",lambda:2],["Mini menu",lambda:3],["Simple text screens",lambda:4],
                ["Detailed text screens",lambda:5],["Close",close]]
 ```
 
-Now the script is able to handle all of our graphics in this tutorial. The first page of the detailed text screen should look like this.
+Now the script is able to handle all of our graphics in this tutorial. The
+first page of the detailed text screen should look like this.
 
 ![alt text] (./detailed_textscreens_screenshot.PNG "Detailed Text Screens Screenshot")
 
-This is the end of the tutorial. You should now be able to make effective use of both the menu and text screens classes for rapid prototyping and final polishing purposes. For comparison,the full example script can be found [here][1]
+This is the end of the tutorial. You should now be able to make effective use
+of both the menu and text screens classes for rapid prototyping and final
+polishing purposes. For comparison,the full example script can be found
+[here][1]
 
 [1]: ./menu_examples.py
 
