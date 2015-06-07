@@ -19,10 +19,13 @@
 #   Menu
 #   Textscreens
 
-import pygame, sys
+import pygame
+import sys
+
 
 class Button:
-    def __init__(self, type_of_button, file_or_text, position, midpoint = None, surface = None, **kargs):
+    def __init__(self, type_of_button, file_or_text, position, midpoint=None,
+                 surface=None, **kargs):
         """This class will help make quick buttons for use with pygame.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Inputs:
@@ -91,46 +94,51 @@ class Button:
         # Unpack the **kargs dictionary into the possible inputs (resize,
         # fontsize and func). If there are still items in kargs return
         # an error.
-        resize = kargs.pop('resize',None)
-        fontsize = kargs.pop('fontsize',36)
-        func = kargs.pop('func',None)
-        background = kargs.pop('background',(67,110,238))
-        sound = kargs.pop('sound',None)
+        resize = kargs.pop('resize', None)
+        fontsize = kargs.pop('fontsize', 36)
+        func = kargs.pop('func', None)
+        background = kargs.pop('background', (67, 110, 238))
+        sound = kargs.pop('sound', None)
         if kargs:
             raise KeyError('An invalid input was passed')
-
 
         # Create a text button
         if type_of_button == 0:
 
             # Create the font object
-            basicfont = pygame.font.Font(None,fontsize)
+            basicfont = pygame.font.Font(None, fontsize)
 
-            # Create the text surface and find the size and midpoint of that surface
-            text = basicfont.render(file_or_text,0,(1,1,1))
+            # Create the text surface and find the size and midpoint
+            # of that surface
+            text = basicfont.render(file_or_text, 0, (1, 1, 1))
             textsize = text.get_size()
-            textmidp = (int(textsize[0] * 0.5),int(textsize[1] * 0.5))
+            textmidp = (int(textsize[0] * 0.5), int(textsize[1] * 0.5))
 
             # Create the background box
             if resize:
                 self.image = pygame.Surface(resize)
             else:
-                self.image = pygame.Surface((int(textsize[0] * 1.25),int(textsize[1] * 1.429)))
+                self.image = pygame.Surface((int(textsize[0] * 1.25),
+                                             int(textsize[1] * 1.429)))
             imagesize = self.image.get_size()
-            imagemidp = (int(imagesize[0] * 0.5),int(imagesize[1] * 0.5))
+            imagemidp = (int(imagesize[0] * 0.5), int(imagesize[1] * 0.5))
 
             # Create the background for the screen
-            # If the backround is a filename load the file and blit it to the image
+            # If the backround is a filename load the file and blit it
+            # to the image
             if type(background) == str:
                 background = pygame.image.load(background).convert()
-                background =  pygame.transform.scale(background,(self.image.get_width(),self.image.get_height()))
-                self.image.blit(background,(0,0))
+                background = pygame.transform.scale(background,
+                                                    (self.image.get_width(),
+                                                     self.image.get_height()))
+                self.image.blit(background, (0, 0))
             # Otherwise the background should contain an rgb value
             else:
                 self.image.fill(background)
 
             # Center the text at the center of the box
-            self.image.blit(text,(imagemidp[0]-textmidp[0], imagemidp[1]-textmidp[1]))
+            self.image.blit(text, (imagemidp[0]-textmidp[0],
+                                   imagemidp[1]-textmidp[1]))
 
         # Create a picture button
         elif type_of_button == 1:
@@ -140,11 +148,12 @@ class Button:
 
             # Change the size of the picture if necessary
             if resize:
-                self.image = pygame.transform.scale(self.image,resize)
-            imagemidp = (int(self.image.get_width() * 0.5), int(self.image.get_height() * 0.5))
+                self.image = pygame.transform.scale(self.image, resize)
+            imagemidp = (int(self.image.get_width() * 0.5),
+                         int(self.image.get_height() * 0.5))
 
         # Set the position of the button
-        self.set_position(position,midpoint,surface)
+        self.set_position(position, midpoint, surface)
 
         # Set the function for the button to pass into the call for the class
         if func is not None:
@@ -156,7 +165,7 @@ class Button:
         else:
             self.sound = None
 
-    def set_position(self,position,midpoint = False,surface = None):
+    def set_position(self, position, midpoint=False, surface=None):
         """This method allows the button to be moved manually and keep the click
         on functionality.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -173,7 +182,7 @@ class Button:
 
         # Find the image size and midpoint of the image
         imagesize = self.image.get_size()
-        imagemidp = (int(imagesize[0] * 0.5),int(imagesize[1] * 0.5))
+        imagemidp = (int(imagesize[0] * 0.5), int(imagesize[1] * 0.5))
 
         # if a midpoint arguement is passed, set the pos to the top left pixel
         # such that the position passed in is in the middle of the button
@@ -183,7 +192,7 @@ class Button:
             self.pos = position
 
         # set the rectangle to be used for collision detection
-        self.rect = pygame.Rect(self.pos,self.image.get_size())
+        self.rect = pygame.Rect(self.pos, self.image.get_size())
 
         # Set up the information that is needed to blit the image to the surface
         self.blitinfo = (self.image, self.pos)
@@ -206,8 +215,9 @@ class Button:
 
         return self.func()
 
+
 class Linesoftext:
-    def __init__(self,text,position,xmid = None,surface = None,**kargs):
+    def __init__(self, text, position, xmid=None, surface=None, **kargs):
         """This object will create an image of text with multiple lines.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Inputs:
@@ -251,50 +261,56 @@ class Linesoftext:
         pygame.font.init()
 
         # Unpack the **kargs dictionary
-        fontsize = kargs.pop('fontsize',36)
-        align = kargs.pop('align','l')
+        fontsize = kargs.pop('fontsize', 36)
+        align = kargs.pop('align', 'l')
 
         # Create the font object
-        basicfont = pygame.font.Font(None,fontsize)
+        basicfont = pygame.font.Font(None, fontsize)
 
         # Figure out the size of the image that will be drawn on and create that
         # image
         linewidths = []
         for x in text:
-            texttemp = basicfont.render(x,0,(1,1,1))
+            texttemp = basicfont.render(x, 0, (1, 1, 1))
             linewidths.append(texttemp.get_width())
         # The width of the image is the width of the text that corresponds to
         # the index of linewidths that contains the largest number in linewidths
-        self.imagewidth = basicfont.render(text[linewidths.index(max(linewidths))],0,(1,1,1)).get_width()
+        maxlinewidth = linewidths.index(max(linewidths))
+        maxlinerender = basicfont.render(text[maxlinewidth], 0, (1, 1, 1))
+        self.imagewidth = maxlinerender.get_width()
         self.imageheight = len(text) * fontsize + (len(text)-1) * 10
-        self.image = pygame.Surface((self.imagewidth,self.imageheight))
-        self.image.fill((200,200,200))
+        self.image = pygame.Surface((self.imagewidth, self.imageheight))
+        self.image.fill((200, 200, 200))
 
         # make the background transparent
-        self.image.set_colorkey((200,200,200))
+        self.image.set_colorkey((200, 200, 200))
 
         # Draw the text to the image using the user chosen alignment
         n = 0
         if align == 'l':
             for x in text:
-                texttemp = basicfont.render(x,0,(1,1,1))
-                self.image.blit(texttemp,(0,n * fontsize + n * 10))
-                n +=1
+                texttemp = basicfont.render(x, 0, (1, 1, 1))
+                self.image.blit(texttemp, (0, n * fontsize + n * 10))
+                n += 1
         elif align == 'c':
             for x in text:
-                texttemp = basicfont.render(x,0,(1,1,1))
-                self.image.blit(texttemp,(self.imagewidth // 2 - texttemp.get_width() // 2,n * fontsize + n * 10))
-                n +=1
+                texttemp = basicfont.render(x, 0, (1, 1, 1))
+                self.image.blit(texttemp,
+                                (self.imagewidth//2 - texttemp.get_width()//2,
+                                 n * fontsize + n * 10))
+                n += 1
         elif align == 'r':
             for x in text:
-                texttemp = basicfont.render(x,0,(1,1,1))
-                self.image.blit(texttemp,(self.imagewidth - texttemp.get_width(),n * fontsize + n * 10))
-                n +=1
+                texttemp = basicfont.render(x, 0, (1, 1, 1))
+                self.image.blit(texttemp,
+                                (self.imagewidth - texttemp.get_width(),
+                                 n * fontsize + n * 10))
+                n += 1
 
         # Set the position of the text. If xmid is passed in as true set the
         # pos to the top middle pixel of the text
         if xmid:
-            self.pos = (position[0] - int(self.image.get_width() / 2),position[1])
+            self.pos = (position[0]-int(self.image.get_width()/2), position[1])
         else:
             self.pos = position
 
@@ -306,7 +322,7 @@ class Linesoftext:
         if surface:
             surface.blit(*self.blitinfo)
 
-    def test(self,windowsize = False):
+    def test(self, windowsize=False):
         """This can be used to quickly test the spacing of the words.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Inputs:
@@ -320,15 +336,16 @@ class Linesoftext:
         # set up a specific window to test the text in
         if windowsize:
             self.screen = pygame.display.set_mode(windowsize)
-            self.screen.fill((200,200,200))
+            self.screen.fill((200, 200, 200))
             self.screen.blit(*self.blitinfo)
 
         # if no specific window is specified create a small one around the
         # outside of the text
         else:
-            self.screen = pygame.display.set_mode((self.imagewidth + 20,self.imageheight + 20))
-            self.screen.fill((200,200,200))
-            self.screen.blit(self.image, (10,10))
+            self.screen = pygame.display.set_mode((self.imagewidth + 20,
+                                                   self.imageheight + 20))
+            self.screen.fill((200, 200, 200))
+            self.screen.blit(self.image, (10, 10))
 
         pygame.display.flip()
         while True:
@@ -337,8 +354,9 @@ class Linesoftext:
                     pygame.quit()
                     sys.exit()
 
+
 class BaseScreen:
-    def __init__(self,size,background = None,music = None):
+    def __init__(self, size, background=None, music=None):
         """This is a base class for the other screens offered in the pygametools
         module.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -352,20 +370,20 @@ class BaseScreen:
         """
 
         # Create the image that the screen will be drawn on
-        self.image = pygame.Surface((size[0],size[1]))
+        self.image = pygame.Surface((size[0], size[1]))
 
         # Create the background for the screen
         # If the backround is a filename load the file and blit it to the image
         if type(background) == str:
             background = pygame.image.load(background).convert()
-            background =  pygame.transform.scale(background,size)
-            self.image.blit(background,(0,0))
+            background = pygame.transform.scale(background, size)
+            self.image.blit(background, (0, 0))
         # Otherwise the background should contain an rgb value
         elif type(background) == tuple:
             self.image.fill(background)
 
         # Set the default position of the screen to (0,0)
-        self.pos = (0,0)
+        self.pos = (0, 0)
 
         # If background music is passed in load the sound file
         if music is not None:
@@ -374,7 +392,7 @@ class BaseScreen:
         else:
             self.music = None
 
-    def set_offset(self,offset,mid = None):
+    def set_offset(self, offset, mid=None):
         """This method will allow the menu to be placed anywhere in the open
            window instead of just the upper left corner.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -398,7 +416,7 @@ class BaseScreen:
 
         if mid:
             imagesize = self.image.get_size()
-            imagemidp = (int(imagesize[0] * 0.5),int(imagesize[1] * 0.5))
+            imagemidp = (int(imagesize[0] * 0.5), int(imagesize[1] * 0.5))
             if mid == 'x':
                 offset = (offset[0] - imagemidp[0], offset[1])
             if mid == 'y':
@@ -412,8 +430,9 @@ class BaseScreen:
                 i.rect[0] += offset[0]
                 i.rect[1] += offset[1]
 
+
 class Menu(BaseScreen):
-    def __init__(self,size,background,header,buttons,music = None):
+    def __init__(self, size, background, header, buttons, music=None):
         """This will create a screen with header text and buttons that call the
         user specified functions when clicked.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -430,8 +449,8 @@ class Menu(BaseScreen):
             buttons - This is a list containing text function pairs for each
                 desired button. Example [['Play',lambda:2],['quit',lambda:3]]
 
-            music - This will be a string of the music file you wish to play while
-                the menu is open
+            music - This will be a string of the music file you wish to play
+                while the menu is open
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Important Attributes:
             buttonlist - If you add button objects to this list the menu will
@@ -442,7 +461,7 @@ class Menu(BaseScreen):
         """
 
         # Initialize the screen class
-        BaseScreen.__init__(self,size,background,music)
+        BaseScreen.__init__(self, size, background, music)
 
         # Determine the mid position of the given screen size and the
         # y button height
@@ -450,12 +469,14 @@ class Menu(BaseScreen):
         ybuth = int(size[1]*0.583333)
 
         # Create the header text
-        Linesoftext(header,(xmid,40),xmid = True,surface = self.image)
+        Linesoftext(header, (xmid, 40), xmid=True, surface=self.image)
 
         # Create the buttons
         self.buttonlist = []
         for i in buttons:
-            self.buttonlist += [Button(0,i[0],(xmid,ybuth + buttons.index(i) * 50), True, surface = self.image,func = i[1])]
+            self.buttonlist += [Button(0, i[0],
+                                       (xmid, ybuth + buttons.index(i) * 50),
+                                       True, surface=self.image, func=i[1])]
 
         # Create an empty list of widgets
         self.widgetlist = []
@@ -465,14 +486,13 @@ class Menu(BaseScreen):
         widget list"""
         widget_status_list = []
         for i in self.widgetlist:
-            widget_status_list += [[i.name,i.status]]
+            widget_status_list += [[i.name, i.status]]
         return widget_status_list
 
-
-    def update(self,screen,clock):
+    def update(self, screen, clock):
         """Event handling loop for the menu"""
 
-        #If a music file was passed, start playing it on repeat
+        # If a music file was passed, start playing it on repeat
         if self.music is not None:
             pygame.mixer.music.play(-1)
 
@@ -484,24 +504,28 @@ class Menu(BaseScreen):
                     sys.exit()
                 # Check if any of the buttons were clicked
                 for i in self.buttonlist:
-                    if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
+                    if (event.type == pygame.MOUSEBUTTONUP and
+                            i.rect.collidepoint(pygame.mouse.get_pos())):
                         if self.music is not None:
                             pygame.mixer.music.stop()
                         if self.widgetlist:
-                            return [i(),self.widget_status()]
+                            return [i(), self.widget_status()]
                         else:
                             return i()
                 # If there is a widget list, check to see if any were clicked
                 if self.widgetlist:
                     for i in self.widgetlist:
-                        if event.type == pygame.MOUSEBUTTONDOWN and i.rect.collidepoint(pygame.mouse.get_pos()):
+                        if (event.type == pygame.MOUSEBUTTONDOWN and
+                                i.rect.collidepoint(pygame.mouse.get_pos())):
                             # Call the widget and give it the menu information
                             i(self)
-            screen.blit(self.image,self.pos)
+            screen.blit(self.image, self.pos)
             pygame.display.flip()
 
+
 class Textscreens(BaseScreen):
-    def __init__(self,size,background,text,lastbutton,manual_buttons = None,music = None):
+    def __init__(self, size, background, text, lastbutton, manual_buttons=None,
+                 music=None):
         """This is a class that will make multiple screens for displaying text,
         like a book using  pages that can be flipped back and forth between.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -535,7 +559,6 @@ class Textscreens(BaseScreen):
         (doc string updated ver 0.1)
         """
 
-
         # Make the inputs into attributes to pass to the individual screens
         self.size = size
         self.background = background
@@ -557,34 +580,35 @@ class Textscreens(BaseScreen):
         # for the text screens
         if manual_buttons:
             self.nextbutton.func = lambda: 2
-            self.nextbutton.set_position((size[0] - xthird,ybut),True)
+            self.nextbutton.set_position((size[0] - xthird, ybut), True)
 
             self.backbutton.func = lambda: 3
-            self.backbutton.set_position((xthird,ybut),True)
+            self.backbutton.set_position((xthird, ybut), True)
 
             self.lastbutton.func = lambda: 4
-            self.lastbutton.set_position((size[0] - xthird,ybut),True)
+            self.lastbutton.set_position((size[0] - xthird, ybut), True)
 
         # If the defaullt buttons are being used create them
         else:
-            self.nextbutton = Button(0,'Next',(size[0] - xthird, ybut),True,
-                                     func = lambda: 2)
-            self.backbutton = Button(0,'Back',(xthird, ybut),True,
-                                     func = lambda: 3)
-            self.lastbutton = Button(0,lastbutton[0],(size[0] - xthird, ybut),
-                                     True, func = lambda: 4)
+            self.nextbutton = Button(0, 'Next', (size[0] - xthird, ybut), True,
+                                     func=lambda: 2)
+            self.backbutton = Button(0, 'Back', (xthird, ybut), True,
+                                     func=lambda: 3)
+            self.lastbutton = Button(0, lastbutton[0], (size[0] - xthird, ybut),
+                                     True, func=lambda: 4)
 
-    def Screens(self,text,prog,screen,clock):
+    def Screens(self, text, prog, screen, clock):
         """Prog = 0 for first page, 1 for middle pages, 2 for last page"""
         # Initialize the screen class
-        BaseScreen.__init__(self,self.size,self.background)
+        BaseScreen.__init__(self, self.size, self.background)
 
         # Determine the mid position of the given screen size and the
         # y button height
         xmid = self.size[0]//2
 
         # Create the header text
-        Linesoftext(text,(xmid,40),xmid = True,surface = self.image,fontsize = 30)
+        Linesoftext(text, (xmid, 40), xmid=True, surface=self.image,
+                    fontsize=30)
 
         # Create the buttons
         self.buttonlist = []
@@ -604,10 +628,10 @@ class Textscreens(BaseScreen):
             self.image.blit(*i.blitinfo)
 
         # Use the menu update method to run the screen and process button clicks
-        return Menu.update(self,screen,clock)
+        return Menu.update(self, screen, clock)
 
-    def update(self,screen,clock):
-        #If a music file was passed, start playing it on repeat
+    def update(self, screen, clock):
+        # If a music file was passed, start playing it on repeat
         if self.music is not None:
             pygame.mixer.music.load(self.music)
             pygame.mixer.music.play(-1)
@@ -624,11 +648,14 @@ class Textscreens(BaseScreen):
             if self.page == 1:
                 # check for last page then first page then make the middle pages
                 if self.progress == (len(self.text) - 1):
-                    self.page = self.Screens(self.text[self.progress],2,screen,clock)
+                    self.page = self.Screens(self.text[self.progress], 2,
+                                             screen, clock)
                 elif self.progress == 0:
-                    self.page = self.Screens(self.text[self.progress],0,screen,clock)
+                    self.page = self.Screens(self.text[self.progress], 0,
+                                             screen, clock)
                 else:
-                    self.page = self.Screens(self.text[self.progress],1,screen,clock)
+                    self.page = self.Screens(self.text[self.progress], 1,
+                                             screen, clock)
             elif self.page == 2:
                 self.progress += 1
                 self.page = 1
