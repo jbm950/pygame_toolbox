@@ -3,7 +3,6 @@
 # Purpose:     This module holds the widgets useable by the menu class
 #
 # Contributors: James Milam
-#
 # Created:     01/06/2015
 # Copyright:   (c) James 2015
 # Licence:     MIT Licence
