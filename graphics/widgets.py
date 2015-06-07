@@ -42,9 +42,8 @@ class wButton(ptg.Button):
         self.status = 0
         ptg.Button.__init__(self, *args, **kargs)
 
-
-def __call__(self, *args, **kargs):
-    return self.func(*args, **kargs)
+    def __call__(self, *args, **kargs):
+        return self.func(*args, **kargs)
 
 
 # Widget to allow toggling between True and False to be collected
