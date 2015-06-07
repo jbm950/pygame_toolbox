@@ -18,6 +18,7 @@
 from .. import graphics as ptg
 import pygame
 
+
 # Variant on the button class that allows inputs to its call
 
 
@@ -43,7 +44,11 @@ class wButton(ptg.Button):
 
 
 def __call__(self, *args, **kargs):
-        return self.func(*args, **kargs)
+    return self.func(*args, **kargs)
+
+
+# Widget to allow toggling between True and False to be collected
+# on menu exit
 
 
 class Checkbox:
