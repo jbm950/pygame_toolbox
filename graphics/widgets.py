@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Name:        pygame_toolbox.graphics.widgets.py
 # Purpose:     This module holds the widgets useable by the menu class
 #
@@ -8,8 +8,8 @@
 # Licence:     MIT Licence
 # Version:     0.1
 # Written for: Python 3.3
-#-------------------------------------------------------------------------------
-#!/usr/bin/env python
+# ------------------------------------------------------------------------------
+# !/usr/bin/env python
 
 # Module Contents
 #   wButton
@@ -19,6 +19,8 @@ from .. import graphics as ptg
 import pygame
 
 # Variant on the button class that allows inputs to its call
+
+
 class wButton(ptg.Button):
     def __init__(self, name, *args, **kargs):
         """This variation on the button class will pass arguments from
@@ -37,9 +39,11 @@ class wButton(ptg.Button):
 
         self.name = name
         self.status = 0
-        ptg.Button.__init__(self,*args,**kargs)
-    def __call__(self,*args,**kargs):
-        return self.func(*args,**kargs)
+        ptg.Button.__init__(self, *args, **kargs)
+
+
+def __call__(self, *args, **kargs):
+        return self.func(*args, **kargs)
 
 
 class Checkbox:
@@ -76,7 +80,7 @@ class Checkbox:
 
         # Create the surface that will hold the checkbox image
         self.image = pygame.Surface((size))
-        self.image.fill((255,255,255))
+        self.image.fill((255, 255, 255))
 
         # Keep location information
         self.position = position
@@ -90,22 +94,22 @@ class Checkbox:
         imagemidp = (int(imagesize[0] * 0.5), int(imagesize[1] * 0.5))
         check = pygame.Surface((round(0.75*imagesize[0]),
                                 round(0.75*imagesize[1])))
-        check.fill((0,0,0))
+        check.fill((0, 0, 0))
 
         # Put the check in the middle of the checkbox
         checkmidp = (int(imagesize[0] * 0.375), int(imagesize[1] * 0.375))
-        self.image.blit(check,(imagemidp[0]-checkmidp[0],
-                               imagemidp[1]-checkmidp[1]))
+        self.image.blit(check, (imagemidp[0]-checkmidp[0],
+                                imagemidp[1]-checkmidp[1]))
 
     def draw_circle_check(self):
         # Create a black check circle that is 75% of the size of
         # the whole box
         imagesize = self.image.get_size()
         imagemidp = (int(imagesize[0] * 0.5), int(imagesize[1] * 0.5))
-        check = pygame.draw.circle(self.image, (0, 0, 0), imagemidp,
-                                   int(imagesize[0]*0.375))
+        pygame.draw.circle(self.image, (0, 0, 0), imagemidp,
+                           int(imagesize[0]*0.375))
 
-    def __call__(self,*arg):
+    def __call__(self, *arg):
         if self.status:
             # If the checkbox was previously checked, set the status
             # to 0 and turn the whole box back to white.
@@ -127,9 +131,3 @@ class Checkbox:
             # Draw the new image on the external surface
             ptg.Button.set_position(self, self.position, self.midpoint,
                                     self.surface)
-
-
-
-
-
-
