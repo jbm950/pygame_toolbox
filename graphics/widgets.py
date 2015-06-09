@@ -16,6 +16,7 @@
 #   Checkbox
 
 from .. import graphics as ptg
+from .. import tilegame_tools as pttt
 import pygame
 
 
@@ -43,7 +44,18 @@ class wButton(ptg.Button):
         ptg.Button.__init__(self, *args, **kargs)
 
     def __call__(self, *args, **kargs):
-        return self.func(*args, **kargs)
+        self.func(*args, **kargs)
+
+
+class wTile(pttt.Tile):
+    def __init__(self, name,  *args, **kargs):
+
+        self.name = name
+        self.status = 0
+        pttt.Tile.__init__(self, *args, **kargs)
+
+    def __call__(self, *args, **kargs):
+        self.func(self, *args, **kargs)
 
 
 # Widget to allow toggling between True and False to be collected
