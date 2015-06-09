@@ -430,6 +430,13 @@ class BaseScreen:
                 i.rect[0] += offset[0]
                 i.rect[1] += offset[1]
 
+        try:
+            for i in self.widgetlist:
+                i.rect[0] += offset[0]
+                i.rect[1] += offset[1]
+        except:
+            pass
+
 
 class Menu(BaseScreen):
     def __init__(self, size, background, header, buttons, music=None):
