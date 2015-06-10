@@ -49,6 +49,19 @@ class wButton(ptg.Button):
 
 class wTile(pttt.Tile):
     def __init__(self, name,  *args, **kargs):
+        """This variation on the tile class will pass arguments from its
+        call into its function along with itself so its shade or status can
+        be altered.
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Inputs:
+            name - This is the name of the widget that the menu will pass
+                when exiting
+
+            The rest of the inputs match the tile class found in the
+                tilegame_toolbox.
+
+        (doc string updated ver 0.1)
+        """
 
         self.name = name
         self.status = 0
