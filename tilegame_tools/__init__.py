@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Name:        pygame_toolbox.tilegame_tools.py
 # Purpose:     This module is the location of multiple classes that will assist
 #              in the development of games that use tiles. (like board games not
@@ -11,8 +11,8 @@
 # Licence:     MIT Licence
 # Version:     0.1
 # Written for: Python 3.3
-#-------------------------------------------------------------------------------
-#!/usr/bin/env python
+# ------------------------------------------------------------------------------
+# !/usr/bin/env python
 
 # Module Contents
 #   Tile
@@ -20,10 +20,12 @@
 #   Tilemap
 
 from .. import graphics as ptg
-import pygame, sys
+import pygame
+import sys
+
 
 class Tile(ptg.Button):
-    def __init__(self,file,size):
+    def __init__(self, file, size):
         """This will load an image and resize it as specified. The class comes
         with shading features and can be used as a parent class for board game
         like tiles that need additional attributes.
@@ -37,21 +39,19 @@ class Tile(ptg.Button):
         """
 
         # Initialize button class and set the picture attribute of the instance
-        ptg.Button.__init__(self,1,file,(0,0),resize = size)
+        ptg.Button.__init__(self, 1, file, (0, 0), resize=size)
         self.pic = pygame.Surface(self.image.get_size())
-        self.pic.blit(self.image,(0,0))
+        self.pic.blit(self.image, (0, 0))
 
         # Set up the shades dictionary. The first item determines if the shade
         # is on and the second item is the surface containing the shade.
         self.shades = {}
 
         # Create blue and red shades for the tile
-        self.initialize_shade('blue',(0,0,255),150)
-        self.initialize_shade('red',(255,0,0),150)
+        self.initialize_shade('blue', (0, 0, 255), 150)
+        self.initialize_shade('red', (255, 0, 0), 150)
 
-
-
-    def initialize_shade(self,shade_name,shade_color,alpha):
+    def initialize_shade(self, shade_name, shade_color, alpha):
         """This method will create semi-transparent surfaces with a specified
         color. The surface can be toggled on and off.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ class Tile(ptg.Button):
         # Set the alpha value for the shade
         self.shades[shade_name][1].set_alpha(alpha)
 
-    def toggle_shade(self,shade):
+    def toggle_shade(self, shade):
         """This method will overlay a semi-transparent shade on top of the
         tile's image.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -102,10 +102,11 @@ class Tile(ptg.Button):
             self.shades[shade][0] = 1
 
         # Now draw the image with the active shades
-        self.image.blit(self.pic,(0,0))
+        self.image.blit(self.pic, (0, 0))
         for key in self.shades:
             if self.shades[key][0]:
-                self.image.blit(self.shades[key][1],(0,0))
+                self.image.blit(self.shades[key][1], (0, 0))
+
 
 class Tilelist(list):
     """This class will act as the holding spot for a matrix of tiles with
@@ -114,7 +115,7 @@ class Tilelist(list):
     (doc string updated ver 0.1)
     """
 
-    def adjacent_tiles(self,tile,pattern):
+    def adjacent_tiles(self, tile, pattern):
             """This will return a list of the tiles adjacent to a given tile.
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Inputs:
@@ -142,18 +143,18 @@ class Tilelist(list):
                         column = self[row].index(j)
 
             # Define functions for the 2 distinct patterns
-            def plus_sign(self,row,column):
+            def plus_sign(self, row, column):
                 nonlocal adj_tiles
                 if row - 1 >= 0:
                     adj_tiles += [self[row - 1][column]]
                 if row + 1 != len(self):
                     adj_tiles += [self[row + 1][column]]
-                if column - 1 >= 0 :
+                if column - 1 >= 0:
                     adj_tiles += [self[row][column - 1]]
                 if column + 1 != len(self[row]):
                     adj_tiles += [self[row][column + 1]]
 
-            def diagonal(self,row,column):
+            def diagonal(self, row, column):
                 nonlocal adj_tiles
                 if column - 1 >= 0:
                     if row - 1 >= 0:
@@ -168,21 +169,22 @@ class Tilelist(list):
 
             # Return the tiles that form a plus sign with the given input tile
             if pattern == 'p':
-                plus_sign(self,row,column)
+                plus_sign(self, row, column)
 
             # Return the tiles touching the four corners of the input tile
             elif pattern == 'x':
-                diagonal(self,row,column)
+                diagonal(self, row, column)
 
             # Return all of the tiles surrounding the input tile
             elif pattern == 'b':
-                plus_sign(self,row,column)
-                diagonal(self,row,column)
+                plus_sign(self, row, column)
+                diagonal(self, row, column)
 
             return adj_tiles
 
+
 class Tilemap(ptg.BaseScreen):
-    def __init__(self,size,tilelist,buttonflag):
+    def __init__(self, size, tilelist, buttonflag):
         """This class will draw an array of tile objects to a screen and return
         a clicked tile or use a given button. It also currently contains basic
         tilelist processing methods.
@@ -210,17 +212,18 @@ class Tilemap(ptg.BaseScreen):
         """
 
         # Initialize the screen class
-        ptg.BaseScreen.__init__(self,size)
+        ptg.BaseScreen.__init__(self, size)
 
         # Create the list of tile objects and draw them on the screen
         self.tilelist = tilelist
         xlen = self.tilelist[0][0].image.get_width()
         ylen = self.tilelist[0][0].image.get_height()
-        for x in range(0,size[0],xlen):
-            for y in range(0,size[1],ylen):
+        for x in range(0, size[0], xlen):
+            for y in range(0, size[1], ylen):
                 try:
-                    self.image.blit(self.tilelist[x // xlen][y // ylen].image,(x,y))
-                    self.tilelist[x // xlen][y // ylen].set_position((x,y))
+                    self.image.blit(self.tilelist[x // xlen][y // ylen].image,
+                                    (x, y))
+                    self.tilelist[x // xlen][y // ylen].set_position((x, y))
                 except:
                     pass
 
@@ -228,7 +231,7 @@ class Tilemap(ptg.BaseScreen):
         self.buttonlist = []
         self.buttonflag = buttonflag
 
-    def set_offset(self,offset,mid = None):
+    def set_offset(self, offset, mid=None):
         """This method will allow the menu to be placed anywhere in the open
            window instead of just the upper left corner.
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -250,32 +253,38 @@ class Tilemap(ptg.BaseScreen):
         (doc string updated ver 0.1)
         """
 
-        BaseScreen.set_offset(self,offset,mid)
+        ptg.BaseScreen.set_offset(self, offset, mid)
         for i in self.tilelist:
             for j in i:
                 j.rect[0] += offset[0]
                 j.rect[1] += offset[1]
 
-    def update(self,screen,clock):
-            while True:
-                clock.tick(30)
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        sys.exit()
+    def update(self, screen, clock):
 
-                    # If the button flag is set to 1 return any tile clicked
-                    if self.buttonflag:
-                        for i in self.tilelist:
-                            for x in i:
-                                if event.type == pygame.MOUSEBUTTONUP and x.rect.collidepoint(pygame.mouse.get_pos()):
-                                    return x
-                    # If the button flag is not set to one use a list of buttons
-                    # and call the function of any button that is called.
-                    else:
-                        for i in self.buttonlist:
-                            if event.type == pygame.MOUSEBUTTONUP and i.rect.collidepoint(pygame.mouse.get_pos()):
-                                return i()
+        def find_mouse(self):
+            return pygame.mouse.get_pos()
 
-                screen.blit(self.image,self.pos)
-                pygame.display.flip()
+        while True:
+            clock.tick(30)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+                # If the button flag is set to 1 return any tile clicked
+                if self.buttonflag:
+                    for i in self.tilelist:
+                        for x in i:
+                            if (event.type == pygame.MOUSEBUTTONUP and
+                                    x.rect.collidepoint(find_mouse())):
+                                return x
+                # If the button flag is not set to one use a list of buttons
+                # and call the function of any button that is called.
+                else:
+                    for i in self.buttonlist:
+                        if (event.type == pygame.MOUSEBUTTONUP and
+                                i.rect.collidepoint(find_mouse())):
+                            return i()
+
+            screen.blit(self.image, self.pos)
+            pygame.display.flip()
