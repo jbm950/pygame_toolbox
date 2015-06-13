@@ -261,7 +261,7 @@ class Tilemap(ptg.BaseScreen):
 
     def update(self, screen, clock):
 
-        def find_mouse(self):
+        def find_mouse():
             return pygame.mouse.get_pos()
 
         while True:
