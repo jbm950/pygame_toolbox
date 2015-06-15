@@ -434,7 +434,7 @@ class BaseScreen:
             for i in self.widgetlist:
                 i.rect[0] += offset[0]
                 i.rect[1] += offset[1]
-        except:
+        except AttributeError:
             pass
 
 
