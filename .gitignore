@@ -2,3 +2,5 @@ pygame_toolbox.egg-info
 pygame_toolbox/__pycache__
 pygame_toolbox/graphics/__pycache__
 pygame_toolbox/tilegame_tools/__pycache__
+dist
+build/
