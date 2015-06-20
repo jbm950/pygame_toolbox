@@ -4,7 +4,7 @@
 
 - [ ] add basic event handler
 - [ ] finish the basic widgets tutorial
-- [ ] add a setup.py/allow download from PyPi via pip
+- [x] add a setup.py/allow download from PyPi via pip
 
 ## 0.2
 
