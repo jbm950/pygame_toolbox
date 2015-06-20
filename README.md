@@ -16,10 +16,11 @@ page.
 
 ##Install Instructions
 
-There is not currently a clean way to obtain Pygame Toolbox. The best way to
-get the library is probably to either clone the repo using git or download the
-zip file and move the extracted folder to some location that is on your
-PATH/PYTHONPATH.
+Pygame Toolbox can now be downloaded via pip. Simply run 
+
+```
+    pip install pygame_toolbox
+```
 
 ###Dependencies
 
