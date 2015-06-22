@@ -673,3 +673,15 @@ class Textscreens(BaseScreen):
                 if self.music_textscreens:
                     pygame.mixer.music.stop()
                 return self.lastbutton_func()
+
+
+class Eventhandler:
+    def __init__(self, events, screen):
+        """Frame for the event handler class"""
+        self.progress = 1
+        self.clock = pygame.time.Clock()
+        self.screen = screen
+        self.events = events
+
+    def update(self):
+        pass
