@@ -18,6 +18,7 @@
 #   BaseScreen
 #   Menu
 #   Textscreens
+#   Eventhandler
 
 import pygame
 import sys
@@ -684,4 +685,7 @@ class Eventhandler:
         self.events = events
 
     def update(self):
-        pass
+        while True:
+            for i in self.events:
+                if i[0] == self.progress:
+                    self.progress = i[1].update(self.screen, self.clock)
