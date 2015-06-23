@@ -2,7 +2,7 @@
 
 ## Finish 0.1
 
-- [ ] add basic event handler
+- [x] add basic event handler
 - [ ] finish the basic widgets tutorial
 - [x] add a setup.py/allow download from PyPi via pip
 
