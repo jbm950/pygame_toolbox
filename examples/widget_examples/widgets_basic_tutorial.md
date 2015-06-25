@@ -1,4 +1,4 @@
-#Welcome to the Widgets Basic Tutorial
+# Welcome to the Widgets Basic Tutorial
 
 (Note: This tutorial is written for pygame_toolbox version 0.1)
 
@@ -13,7 +13,7 @@ update method. The widgets therefore give the capability to create objects that
 will interact within the menu or to allow the menu to collect state information
 given by the user.
 
-##Widget Fundamentals
+## Widget Fundamentals
 
 The widgets in Pygame Toolbox will all come with some specific attributes to be
 made use of by your event handlers. Each widget will have a name attribute and
@@ -37,3 +37,30 @@ sum each widget will need to somewhat match the following format.
             pass
 ```
 
+## Retrieving Widget Information
+
+Your event handler will recieve the widgets name and state upon exit from the
+menu. The widgets will be returned as a list after the value of the button used
+to exit the menu. To illustrate the list of widget information can be retrieved
+in your event handler as follows:
+
+```python
+    (button_return, widget_list) = Menu().update()
+```
+
+The widget_list contains a list for each widget on the menu where the first
+item is the widget name and the second item is the widget status.
+
+## Summary
+
+This tutorial is rather short but covers the basics that widgets provide in
+Pygame Toolbox, interactibles that retain state and do not exit menu update
+functions upon use. The main components of widgets are:
+
+- A name attribute do differentiate between the widgets in the returned widget
+  list
+- A status attribute to retain state information
+- A call method that accepts the menu instance in case menu information needs
+  to be passed on to the widget for processing
+
+The widgets are then collected in a list and returned upon menu exit.
