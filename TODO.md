@@ -5,6 +5,7 @@
 - [x] add basic event handler
 - [ ] finish the basic widgets tutorial
 - [x] add a setup.py/allow download from PyPi via pip
+- [ ] add a code snippit to the examples page before the tutorials
 
 ## 0.2
 
