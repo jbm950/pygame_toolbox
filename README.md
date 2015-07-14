@@ -1,6 +1,6 @@
 # Pygame Toolbox
 
-(Version 0.1.2)
+(Version 0.1.2)  
 Written for Python 3.X  
 Untested in Python 2.X
 
