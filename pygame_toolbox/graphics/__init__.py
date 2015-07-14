@@ -18,6 +18,7 @@
 #   BaseScreen
 #   Menu
 #   Textscreens
+#   Eventhandler
 
 import pygame
 import sys
@@ -673,3 +674,39 @@ class Textscreens(BaseScreen):
                 if self.music_textscreens:
                     pygame.mixer.music.stop()
                 return self.lastbutton_func()
+
+
+class Eventhandler:
+    def __init__(self, events, screen):
+        """The event handler class will take care of which screen to
+        display along with actions that are to happen inbetween screens.
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Inputs:
+            events - This will be a list with an embedded list where the
+                first item in the enbedded list is the number corresponding
+                to the self.progress value at which the screen should be
+                displayed and the second item is the function that corresponds
+                to the screen being displayed. ex. [[1, Titlescreen().update]]
+
+            screen - This is the pygame pygame display that the event handler
+                should display items on.
+
+        (doc string updated ver 0.1.2)
+        """
+
+        # Set the initial self.progress value and initialize the pygame clock
+        self.progress = 1
+        self.clock = pygame.time.Clock()
+
+        # Set the inputs to instance attributes to be used in the update
+        # method
+        self.screen = screen
+        self.events = events
+
+    def update(self):
+        while True:
+            for i in self.events:
+                # If the first item in the list matches the self.progress
+                # attribute then call the second item
+                if i[0] == self.progress:
+                    self.progress = i[1](self.screen, self.clock)
