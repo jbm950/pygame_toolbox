@@ -3,7 +3,7 @@
 ## Finish 0.1
 
 - [x] add basic event handler
-- [ ] finish the basic widgets tutorial
+- [x] finish the basic widgets tutorial
 - [x] add a setup.py/allow download from PyPi via pip
 - [ ] add a code snippit to the examples page before the tutorials
 
@@ -13,8 +13,10 @@
 - [ ] add the ability to put text with checkboxes
 - [ ] add organized checkbox list
 - [ ] add scroll bar widget
-- [ ] allow the basic event handler to customize responses to events (ie. not
-     just calling the self.progress = obj.update())
+- [ ] rewrite the widget tutorial to be less of an explanation and more of a
+      tutorial
+- [ ] add a tutorial for the new eventhandler class
+
 
 ## Future Plans
 
