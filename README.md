@@ -11,7 +11,8 @@ in Python. Current code deals with menu creation and boardgame like tile usage.
 For details on using the library please refer to the [examples](/examples)
 page.
 
-<p align="center"><img src="./welcome_image.PNG" alt="Pygame Toolbox Image" title="Pygame Toolbox Image" height="400" width="500" /></p>
+<p align="center"><img src="./welcome_image.PNG" alt="Pygame Toolbox Image"
+title="Pygame Toolbox Image" height="400" width="500" /></p>
 
 
 ##Install Instructions
